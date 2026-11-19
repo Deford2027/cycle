@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Цикл</title>
+<meta name="description" content="Личный трекер цикла. Данные хранятся только на этом устройстве.">
+<meta name="theme-color" content="#FBF6F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151113" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Цикл">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <main id="view"></main>
+  <nav class="tabs" id="tabs">
+    <button data-tab="today" class="on">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8.2c1.6 2 2.6 3.4 2.6 4.6a2.6 2.6 0 0 1-5.2 0c0-1.2 1-2.6 2.6-4.6z"/></svg>
+      <span>Сегодня</span>
+    </button>
+    <button data-tab="cal">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+      <span>Календарь</span>
+    </button>
+    <button data-tab="stats">
+      <svg viewBox="0 0 24 24"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>
+      <span>Статистика</span>
+    </button>
+    <button data-tab="set">
+      <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+      <span>Настройки</span>
+    </button>
+  </nav>
+</div>
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-card" role="dialog" aria-modal="true">
+    <div class="sheet-grab"></div>
+    <div id="sheet-body"></div>
+  </div>
+</div>
+<div id="lock" class="lock" hidden></div>
+<div id="toast" class="toast"></div>
+<input type="file" id="file" accept="application/json,.json" hidden>
+<script src="app.js"></script>
+</body>
+</html>
