@@ -35,6 +35,11 @@ const MOODS = ['Спокойствие', 'Радость', 'Энергия', 'И
 const DISCHARGE = ['Нет', 'Липкие', 'Кремообразные', 'Как яичный белок', 'Водянистые', 'Необычные'];
 const SEX = ['Не было', 'С защитой', 'Без защиты'];
 
+const QUICK = [
+  ['period', 'Месячные', '🩸', 'var(--period)'], ['symptoms', 'Симптомы', '😣', '#8B6CD6'], ['mood', 'Настроение', '🙂', '#E39A2D'],
+  ['discharge', 'Выделения', '💧', '#3B9BD9'], ['sex', 'Секс', '❤️', '#D3507F'], ['temp', 'Температура', '🌡️', '#7A8A99'], ['note', 'Заметка', '📝', '#7A8A99'],
+];
+
 const PHASES = {
   period: { name: 'Менструальная фаза', ico: '🩸', bg: 'var(--period-soft)',
     tip: 'Организм тратит больше сил. Тепло на низ живота, вода и спокойный темп помогают легче пройти эти дни.' },
@@ -253,6 +258,10 @@ function renderToday() {
       </div>
     </div>
     <div style="text-align:center;margin-bottom:18px"><span class="chance ${st.chance}"><i></i>${chanceTxt}</span></div>
+    <div class="quick">${QUICK.map(([k, n, ico, c]) => {
+      const done = k === 'temp' ? rec.temp || rec.weight : Array.isArray(rec[k]) ? rec[k].length : rec[k];
+      return `<button data-quick="${k}" class="${done ? 'done' : ''}" style="--qc:${c}"><span class="q-ico">${ico}</span><span class="q-lbl">${n}</span></button>`;
+    }).join('')}</div>
     <div class="card">
       <div class="logrow"><div><h2 style="margin:0 0 4px">Как ты сегодня?</h2>
         <div class="muted small">${tags.length ? 'Записано за сегодня' : 'Симптомы, настроение, выделения'}</div></div>
@@ -465,17 +474,17 @@ function renderSheet() {
   $('#sheet-body').innerHTML = `
     <div class="sh-hd"><div><h2>${title}</h2><div class="sub">${cap(fmt(d, { weekday: 'long', day: 'numeric', month: 'long' }))}${cd ? ` · ${cd}-й день цикла` : ''}</div></div>
       <button class="btn sm ghost" data-close>Готово</button></div>
-    <div class="sec"><h4><i style="background:var(--period)"></i>Месячные</h4>${optGroup('period', FLOW, false, 'c-flow', r.period)}</div>
-    <div class="sec"><h4><i style="background:#8B6CD6"></i>Самочувствие</h4>${optGroup('symptoms', pairs(SYMPTOMS), true, 'c-sym', r.symptoms)}</div>
-    <div class="sec"><h4><i style="background:#E39A2D"></i>Настроение</h4>${optGroup('mood', pairs(MOODS), true, 'c-mood', r.mood)}</div>
-    <div class="sec"><h4><i style="background:#3B9BD9"></i>Выделения</h4>${optGroup('discharge', pairs(DISCHARGE), false, 'c-dis', r.discharge)}</div>
-    <div class="sec"><h4><i style="background:#D3507F"></i>Секс</h4>${optGroup('sex', pairs(SEX), false, 'c-sex', r.sex)}</div>
-    <div class="sec"><h4><i style="background:var(--ink-3)"></i>Измерения</h4>
+    <div class="sec" id="sec-period"><h4><i style="background:var(--period)"></i>Месячные</h4>${optGroup('period', FLOW, false, 'c-flow', r.period)}</div>
+    <div class="sec" id="sec-symptoms"><h4><i style="background:#8B6CD6"></i>Самочувствие</h4>${optGroup('symptoms', pairs(SYMPTOMS), true, 'c-sym', r.symptoms)}</div>
+    <div class="sec" id="sec-mood"><h4><i style="background:#E39A2D"></i>Настроение</h4>${optGroup('mood', pairs(MOODS), true, 'c-mood', r.mood)}</div>
+    <div class="sec" id="sec-discharge"><h4><i style="background:#3B9BD9"></i>Выделения</h4>${optGroup('discharge', pairs(DISCHARGE), false, 'c-dis', r.discharge)}</div>
+    <div class="sec" id="sec-sex"><h4><i style="background:#D3507F"></i>Секс</h4>${optGroup('sex', pairs(SEX), false, 'c-sex', r.sex)}</div>
+    <div class="sec" id="sec-temp"><h4><i style="background:var(--ink-3)"></i>Измерения</h4>
       <div class="nums">
         <label class="field">Базальная t°, °C<input id="n-temp" inputmode="decimal" placeholder="36,6" value="${esc(r.temp || '')}"></label>
         <label class="field">Вес, кг<input id="n-weight" inputmode="decimal" placeholder="—" value="${esc(r.weight || '')}"></label>
       </div></div>
-    <div class="sec"><h4><i style="background:var(--ink-3)"></i>Заметка</h4>
+    <div class="sec" id="sec-note"><h4><i style="background:var(--ink-3)"></i>Заметка</h4>
       <textarea id="n-note" placeholder="Лекарства, тест, что угодно…">${esc(r.note || '')}</textarea></div>`;
 }
 function saveNumbers() {
@@ -615,6 +624,15 @@ document.addEventListener('click', e => {
   if (ds.tab) { if (editing) return; tab = ds.tab; render(); window.scrollTo(0, 0); return; }
   if (ds.tabGo) { tab = ds.tabGo; calMonth = today().slice(0, 7); render(); return; }
   if (ds.day) return openDay(ds.day);
+  if (ds.quick) {
+    openDay(today());
+    const body = $('#sheet-body'), sec = $('#sec-' + ds.quick);
+    if (sec) {
+      body.scrollTop = sec.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 72;
+      sec.classList.add('flash');
+    }
+    return;
+  }
 
   if (ds.cday) {
     const d = ds.cday;

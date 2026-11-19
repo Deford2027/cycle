@@ -324,3 +324,27 @@ textarea { resize: none; min-height: 84px; }
 .ring-halo { transform-box: fill-box; transform-origin: center; animation: halo 2.4s ease-in-out infinite; }
 @keyframes halo { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.25); opacity: .5; } }
 @media (prefers-reduced-motion: reduce) { .ring-halo { animation: none; } }
+
+/* быстрые кнопки под кругом */
+.quick {
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  margin: 0 -16px 18px; padding: 2px 16px 4px; scroll-snap-type: x proximity;
+}
+.quick::-webkit-scrollbar { display: none; }
+.quick button { flex: none; width: 72px; display: flex; flex-direction: column; align-items: center; gap: 6px; scroll-snap-align: start; }
+.q-ico {
+  width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-size: 24px; position: relative;
+  background: var(--card); box-shadow: var(--shadow); transition: transform .12s;
+}
+.quick button:active .q-ico { transform: scale(.92); }
+.q-lbl { font-size: 12px; color: var(--ink-2); font-weight: 500; white-space: nowrap; }
+.quick .done .q-ico { background: color-mix(in srgb, var(--qc) 16%, var(--card)); box-shadow: inset 0 0 0 2px var(--qc); }
+.quick .done .q-ico::after {
+  content: "✓"; position: absolute; right: -2px; top: -2px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--qc); color: #fff; font-size: 11px; font-weight: 800; display: grid; place-items: center;
+  border: 2px solid var(--bg);
+}
+.quick .done .q-lbl { color: var(--ink); }
+.sec.flash { animation: flash 1.2s ease; }
+@keyframes flash { 0%, 40% { box-shadow: 0 0 0 2px var(--period), var(--shadow); } 100% { box-shadow: var(--shadow); } }
+@media (min-width: 520px) { .quick { justify-content: center; } }
