@@ -370,3 +370,4 @@ textarea { resize: none; min-height: 84px; }
 .h-help ol { padding-left: 20px; }
 .h-help li { margin-bottom: 8px; }
 .h-help p:last-child, .h-help ol:last-child { margin-bottom: 0; }
+.h-tpl { background: var(--card-2); border-radius: 10px; padding: 10px 12px; margin: 8px 0; line-height: 2; font-size: 14px; }

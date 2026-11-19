@@ -41,14 +41,34 @@ function hAsleep(val) {
 
 function parseHealth(text) {
   const rows = [], bad = [];
+  const blocks = {};          // формат без цикла: =КОД:start / =КОД:end / =КОД:value, дальше списки по строке
+  let cur = null;
   for (const raw of String(text || '').split(/\r?\n/)) {
     const line = raw.trim();
     if (!line || /^CYCLE-HEALTH/i.test(line)) continue;
+    const mk = line.match(/^=\s*([A-Za-z]+)\s*:\s*(start|end|value)\s*$/i);
+    if (mk) {
+      const code = mk[1].toUpperCase();
+      if (!H_CODES.includes(code)) { bad.push(line); cur = null; continue; }
+      cur = ((blocks[code] ||= {})[mk[2].toLowerCase()] = []);
+      continue;
+    }
+    if (cur && !line.includes('|')) { cur.push(line); continue; }
+    cur = null;
     const p = line.split('|').map(x => x.trim());
     const code = (p[0] || '').toUpperCase();
     const st = hWhen(p[1]);
     if (!H_CODES.includes(code) || !st) { bad.push(line); continue; }
     rows.push({ code, st, en: hWhen(p[2]) || st, val: p.slice(3).join('|') });
+  }
+  for (const [code, b] of Object.entries(blocks)) {
+    const st = b.start || [], en = b.end || [], val = b.value || [];
+    if (val.length && val.length !== st.length) bad.push(`${code}: дат ${st.length}, значений ${val.length} — списки не совпадают`);
+    for (let i = 0; i < st.length; i++) {
+      const s0 = hWhen(st[i]);
+      if (!s0) { bad.push(`${code}: ${st[i]}`); continue; }
+      rows.push({ code, st: s0, en: hWhen(en[i]) || s0, val: val[i] ?? '' });
+    }
   }
   return { rows, bad };
 }
@@ -121,7 +141,7 @@ function applyHealth(text) {
 async function healthImport() {
   let text = '';
   try { text = await navigator.clipboard.readText(); } catch (e) { /* нет доступа — покажем поле для вставки */ }
-  if (new RegExp(`(${H_CODES.join('|')})\\|`, 'i').test(text)) return applyHealth(text);
+  if (new RegExp(`(${H_CODES.join('|')})(\\||\\s*:\\s*start)`, 'i').test(text)) return applyHealth(text);
   showSheet(`
     <div class="sh-hd"><div><h2>Вставь данные</h2><div class="sub">Сначала запусти команду «Цикл: Здоровье»</div></div>
       <button class="btn sm ghost" data-close>Закрыть</button></div>
@@ -284,26 +304,25 @@ function healthHelp() {
       <p>Открой «Команды» → «+». Назови её <b>Цикл: Здоровье</b>.</p>
     </div>
     <div class="sec h-help">
-      <h4>2. Первый блок — шаги</h4>
+      <h4>2. Первый блок — шаги (2 действия)</h4>
       <ol>
         <li>Действие <b>«Найти образцы здоровья»</b>. Тип: <b>Шаги</b>. Фильтр: «Дата начала» — «за последние» — <b>14 дней</b>. «Группировать по» → <b>День</b>.</li>
-        <li>Действие <b>«Повторить с каждым»</b>.</li>
-        <li>Внутрь повтора — действие <b>«Текст»</b>. Набери ${code('STEPS|')}, затем вставь переменную <b>«Объект повтора»</b>, нажми на неё → <b>«Дата начала»</b>, формат даты <b>ISO 8601</b> (с временем).</li>
-        <li>Дальше в том же тексте: ${code('|')} → «Объект повтора» → <b>«Дата окончания»</b> (ISO 8601) → ${code('|')} → «Объект повтора» → <b>«Значение»</b>.</li>
-        <li>После «Конец повтора» — <b>«Добавить в переменную»</b>, имя переменной <b>Данные</b> (на входе — «Результаты повтора»).</li>
+        <li>Действие <b>«Текст»</b>. В нём шесть строк:
+          <div class="h-tpl">${code('=STEPS:start')}<br><i>переменная</i> → «Дата начала»<br>${code('=STEPS:end')}<br><i>переменная</i> → «Дата окончания»<br>${code('=STEPS:value')}<br><i>переменная</i> → «Значение»</div>
+          <i>Переменная</i> — результат «Найти образцы здоровья» (над клавиатурой «Образцы здоровья» или «Выбрать переменную»). Нажми на вставленную переменную и выбери нужное свойство; для дат поставь формат <b>ISO 8601</b> с временем.</li>
+        <li><b>«Добавить в переменную»</b>, имя переменной <b>Данные</b> (на входе — этот «Текст»).</li>
       </ol>
-      <p class="muted">Получится строка вида ${code('STEPS|дата|дата|значение')}.</p>
     </div>
     <div class="sec h-help">
       <h4>3. Остальные блоки</h4>
-      <p>Продублируй три действия блока (долгое нажатие → «Дублировать») и поменяй <b>Тип</b> и <b>код</b> в начале текста:</p>
-      <div class="h-row"><span>Активная энергия <span class="muted">(группировка «День»)</span></span>${code('KCAL|')}</div>
-      <div class="h-row"><span>Анализ сна <span class="muted">(без группировки)</span></span>${code('SLEEP|')}</div>
-      <div class="h-row"><span>Вес</span>${code('WEIGHT|')}</div>
-      <div class="h-row"><span>Температура запястья во сне <span class="muted">(если есть в списке)</span></span>${code('WTEMP|')}</div>
-      <div class="h-row"><span>Базальная температура тела</span>${code('BTEMP|')}</div>
-      <div class="h-row"><span>Тренировки <span class="muted">(вместо «Значение» — «Тип»)</span></span>${code('WORK|')}</div>
-      <p class="muted">Лишние блоки можно не делать — приложение возьмёт то, что есть.</p>
+      <p>Сделай такие же три действия для других типов, меняя <b>Тип</b> и <b>код</b> в трёх строках-метках (${code('=SLEEP:start')} и т.д.):</p>
+      <div class="h-row"><span>Активная энергия <span class="muted">(группировка «День»)</span></span>${code('KCAL')}</div>
+      <div class="h-row"><span>Анализ сна <span class="muted">(без группировки)</span></span>${code('SLEEP')}</div>
+      <div class="h-row"><span>Вес</span>${code('WEIGHT')}</div>
+      <div class="h-row"><span>Температура запястья во сне <span class="muted">(если есть в списке)</span></span>${code('WTEMP')}</div>
+      <div class="h-row"><span>Базальная температура тела</span>${code('BTEMP')}</div>
+      <div class="h-row"><span>Тренировки <span class="muted">(вместо «Значение» — «Тип»)</span></span>${code('WORK')}</div>
+      <p class="muted">Если дублируешь блок — проверь, что переменные в новом «Тексте» ссылаются на новый «Найти образцы», а не на первый. Лишние блоки можно не делать.</p>
     </div>
     <div class="sec h-help">
       <h4>4. Финал</h4>
