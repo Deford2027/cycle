@@ -348,3 +348,25 @@ textarea { resize: none; min-height: 84px; }
 .sec.flash { animation: flash 1.2s ease; }
 @keyframes flash { 0%, 40% { box-shadow: 0 0 0 2px var(--period), var(--shadow); } 100% { box-shadow: var(--shadow); } }
 @media (min-width: 520px) { .quick { justify-content: center; } }
+
+/* Здоровье */
+.h-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.h-item { background: var(--card-2); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.h-item .h-ico { font-size: 18px; margin-bottom: 4px; }
+.h-item b { font-size: 18px; letter-spacing: -.01em; }
+.h-item span:last-child { font-size: 12px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.h-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; font-size: 15px; }
+.h-row + .h-row { border-top: 1px solid var(--line); }
+.h-row b { font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.h-table { display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 0; font-size: 14px; }
+.h-table > div { padding: 9px 2px; border-bottom: 1px solid var(--line); }
+.h-th { font-size: 12px; color: var(--ink-3); font-weight: 600; text-align: right; }
+.h-tl { color: var(--ink-2); }
+.h-td { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.h-chart { width: 100%; height: auto; overflow: visible; }
+.h-code { font: 600 13px/1 ui-monospace, "SF Mono", Menlo, monospace; background: var(--card-2); color: var(--period); padding: 3px 6px; border-radius: 6px; white-space: nowrap; }
+.h-raw { font: 12px/1.45 ui-monospace, "SF Mono", Menlo, monospace; background: var(--card-2); padding: 10px; border-radius: 10px; white-space: pre-wrap; word-break: break-all; margin: 0; }
+.h-help p, .h-help ol { margin: 0 0 8px; font-size: 15px; line-height: 1.5; }
+.h-help ol { padding-left: 20px; }
+.h-help li { margin-bottom: 8px; }
+.h-help p:last-child, .h-help ol:last-child { margin-bottom: 0; }

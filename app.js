@@ -63,7 +63,7 @@ let editSnapshot = null;
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && s.days) return { settings: { ...DEF_SETTINGS, ...s.settings }, days: s.days };
+    if (s && s.days) return { settings: { ...DEF_SETTINGS, ...s.settings }, days: s.days, health: s.health || {}, healthAt: s.healthAt || null };
   } catch (e) { /* пусто или повреждено */ }
   return null;
 }
@@ -268,6 +268,7 @@ function renderToday() {
         <button class="addbtn" data-day="${T}" aria-label="Добавить"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
       ${tags.length ? `<div class="chips" style="margin-top:14px">${tags.join('')}</div>` : ''}
     </div>
+    ${healthCard()}
     <div class="card"><div class="phase"><div class="ph-dot" style="background:${ph.bg}">${ph.ico}</div>
       <div><h3>${ph.name}</h3><p>${ph.tip}</p></div></div></div>
     <div class="card">
@@ -378,6 +379,7 @@ function renderStats() {
       ${rows || '<div class="empty">Отметь месячные, и здесь появится история</div>'}
       ${rows ? `<div class="legend" style="margin-top:12px"><span><i class="lg-p"></i>Месячные</span><span><i class="lg-f" style="background:var(--fert);opacity:.55"></i>Фертильное окно</span></div>` : ''}
     </div>
+    ${healthStats(m)}
     <div class="card"><h2>Частые симптомы<small>за 6 месяцев</small></h2>
       ${top.length ? top.map(([n, v]) => `<div class="freq"><div>${esc(n)}</div><div class="bar"><div class="p" style="width:${(v / topMax * 100).toFixed(0)}%"></div></div><div class="num">${v}</div></div>`).join('')
         : '<div class="empty">Записывай симптомы и настроение — тут появятся закономерности</div>'}
@@ -408,6 +410,12 @@ function renderSettings() {
       <button class="row" data-act="ics"><div class="rt"><div>Добавить прогноз в Календарь iPhone</div><div>6 ближайших месячных и овуляций, напоминание за 2 дня</div></div><span class="chev">›</span></button>
     </div>
     <div class="note">Обнови после пары новых циклов — прогноз уточняется.</div>
+
+    <div class="group-t">Apple Здоровье</div>
+    <div class="group">
+      <button class="row" data-act="h-import"><div class="rt"><div>Загрузить из Здоровья</div><div>${S.healthAt ? 'Последний раз: ' + new Date(S.healthAt).toLocaleString('ru-RU', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'Через команду в приложении «Команды»'}</div></div><span class="chev">›</span></button>
+      <button class="row" data-act="h-help"><div class="rt"><div>Как настроить команду</div></div><span class="chev">›</span></button>
+    </div>
 
     <div class="group-t">Данные</div>
     <div class="group">
@@ -453,6 +461,15 @@ function openDay(d) {
   sh.hidden = false;
   requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add('open')));
 }
+function showSheet(html) {
+  sheetDay = null;
+  $('#sheet-body').innerHTML = html;
+  $('#sheet-body').scrollTop = 0;
+  const sh = $('#sheet');
+  if (!sh.hidden) return;
+  sh.hidden = false;
+  requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add('open')));
+}
 function closeSheet() {
   const sh = $('#sheet');
   if (sh.hidden) return;
@@ -484,6 +501,7 @@ function renderSheet() {
         <label class="field">Базальная t°, °C<input id="n-temp" inputmode="decimal" placeholder="36,6" value="${esc(r.temp || '')}"></label>
         <label class="field">Вес, кг<input id="n-weight" inputmode="decimal" placeholder="—" value="${esc(r.weight || '')}"></label>
       </div></div>
+    ${healthDaySection(d)}
     <div class="sec" id="sec-note"><h4><i style="background:var(--ink-3)"></i>Заметка</h4>
       <textarea id="n-note" placeholder="Лекарства, тест, что угодно…">${esc(r.note || '')}</textarea></div>`;
 }
@@ -527,7 +545,7 @@ async function shareOrDownload(blob, name) {
   download(blob, name);
 }
 function exportData() {
-  const data = { app: 'cycle', version: 1, exported: new Date().toISOString(), settings: { ...S.settings, pin: null }, days: S.days };
+  const data = { app: 'cycle', version: 1, exported: new Date().toISOString(), settings: { ...S.settings, pin: null }, days: S.days, health: S.health || {}, healthAt: S.healthAt || null };
   shareOrDownload(new Blob([JSON.stringify(data)], { type: 'application/json' }), `cycle-backup-${today()}.json`);
 }
 function importData(file) {
@@ -538,7 +556,7 @@ function importData(file) {
       if (!data || typeof data.days !== 'object') throw new Error();
       const n = Object.keys(data.days).length;
       if (S && Object.keys(S.days).length && !confirm(`Заменить текущие данные копией (${n} дн. записей)?`)) return;
-      S = { settings: { ...DEF_SETTINGS, ...data.settings, pin: S?.settings.pin || null }, days: data.days };
+      S = { settings: { ...DEF_SETTINGS, ...data.settings, pin: S?.settings.pin || null }, days: data.days, health: data.health || {}, healthAt: data.healthAt || null };
       save(); tab = 'today'; render(); toast('Данные восстановлены');
     } catch (e) { toast('Это не похоже на файл резервной копии'); }
   };
@@ -682,6 +700,12 @@ document.addEventListener('click', e => {
     case 'export': return exportData();
     case 'import': return $('#file').click();
     case 'ics': return exportIcs();
+    case 'h-import': return healthImport();
+    case 'h-help': return healthHelp();
+    case 'h-apply': return applyHealth($('#h-paste')?.value || '');
+    case 'h-clip':
+      navigator.clipboard?.readText?.().then(t => applyHealth(t)).catch(() => toast('Нет доступа к буферу — вставь текст вручную'));
+      return;
     case 'pin': return setupPin();
     case 'wipe':
       if (confirm('Удалить все записи безвозвратно?') && confirm('Точно? Восстановить можно только из резервной копии.')) {
@@ -691,7 +715,7 @@ document.addEventListener('click', e => {
     case 'ob-go': {
       const start = $('#ob-start').value || today();
       if (start > today()) return toast('Дата не может быть в будущем');
-      S = { settings: { ...DEF_SETTINGS, cycleLen: ob.clen, periodLen: ob.plen }, days: {} };
+      S = { settings: { ...DEF_SETTINGS, cycleLen: ob.clen, periodLen: ob.plen }, days: {}, health: {}, healthAt: null };
       for (let i = 0; i < ob.plen; i++) S.days[add(start, i)] = { period: 'medium' };
       save(); tab = 'today'; render(); return;
     }
