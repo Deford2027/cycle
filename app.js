@@ -186,25 +186,28 @@ function dayCell(d, m, extra = '') {
 /* ---- Сегодня ---- */
 function ringSvg(m, st) {
   const N = Math.max(m.L, st.day);
-  const c = 150, r = 128, w = 20, gap = N > 40 ? .6 : 1.1;
-  const pt = a => { const rad = (a - 90) * Math.PI / 180; return [c + r * Math.cos(rad), c + r * Math.sin(rad)]; };
+  const c = 150, r = 124;
+  const dotR = Math.min(10.5, (2 * Math.PI * r / N) * .37);
+  const pt = i => { const rad = (i * 360 / N - 90) * Math.PI / 180; return [c + r * Math.cos(rad), c + r * Math.sin(rad)]; };
   const css = getComputedStyle(document.documentElement);
   const col = n => css.getPropertyValue(n).trim();
   const colors = { period: col('--period'), pred: col('--period'), fert: col('--fert'), ovu: col('--ovu') };
-  let paths = '';
+  let dots = '';
   for (let i = 0; i < N; i++) {
+    if (i === st.day - 1) continue; // сегодняшний рисуем отдельно, поверх
     const d = add(m.last.start, i), t = m.type[d];
-    const a0 = i * 360 / N + gap / 2, a1 = (i + 1) * 360 / N - gap / 2;
-    const [x0, y0] = pt(a0), [x1, y1] = pt(a1);
+    const [x, y] = pt(i);
     const color = colors[t] || (d <= m.T ? col('--track-2') : col('--track'));
-    const op = t === 'pred' ? .45 : t === 'fert' && d > m.T ? .7 : 1;
-    paths += `<path d="M${x0.toFixed(2)} ${y0.toFixed(2)}A${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" stroke="${color}" stroke-opacity="${op}" stroke-width="${w}" fill="none"/>`;
+    const op = t === 'pred' ? .4 : t === 'fert' && d > m.T ? .75 : 1;
+    const rr = t === 'ovu' ? dotR + 1.5 : dotR;
+    dots += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${rr.toFixed(2)}" fill="${color}" fill-opacity="${op}"/>`;
   }
-  const [tx, ty] = pt((st.day - .5) * 360 / N);
+  const [tx, ty] = pt(st.day - 1);
   const tc = colors[m.type[m.T]] || col('--ink');
-  return `<svg viewBox="0 0 300 300" aria-hidden="true">${paths}
-    <circle cx="${tx}" cy="${ty}" r="15" fill="${col('--card')}" stroke="${tc}" stroke-width="4"/>
-    <circle cx="${tx}" cy="${ty}" r="5" fill="${tc}"/></svg>`;
+  return `<svg viewBox="0 0 300 300" aria-hidden="true">${dots}
+    <circle class="ring-halo" cx="${tx}" cy="${ty}" r="${dotR + 10}" fill="${tc}" fill-opacity=".18"/>
+    <circle cx="${tx}" cy="${ty}" r="${dotR + 6}" fill="${tc}" stroke="${col('--card')}" stroke-width="3"/>
+    <text x="${tx}" y="${ty}" dy=".35em" text-anchor="middle" font-size="13" font-weight="700" fill="${col('--card')}" font-family="-apple-system, system-ui, sans-serif">${st.day}</text></svg>`;
 }
 
 function renderToday() {

@@ -321,3 +321,6 @@ textarea { resize: none; min-height: 84px; }
   .fade, .dots.err { animation: none; }
   .sheet-card, .sheet-bg, .toast { transition: none; }
 }
+.ring-halo { transform-box: fill-box; transform-origin: center; animation: halo 2.4s ease-in-out infinite; }
+@keyframes halo { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.25); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .ring-halo { animation: none; } }
