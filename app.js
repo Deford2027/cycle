@@ -2,7 +2,7 @@
 /* Цикл — личный трекер. Все данные лежат только в localStorage этого устройства. */
 
 const KEY = 'cycle.v1';
-const DEF_SETTINGS = { cycleLen: 28, periodLen: 5, luteal: 14, auto: true, pin: null };
+const DEF_SETTINGS = { cycleLen: 28, periodLen: 5, luteal: 14, auto: true, pin: null, shortcutName: 'Цикл Здоровье' };
 
 /* ---------- utils ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -59,6 +59,8 @@ let tab = 'today';
 let calMonth = today().slice(0, 7);
 let editing = false;
 let editSnapshot = null;
+let sel = null;                      // выбранный на главном экране день (null — сегодня)
+const selDay = () => sel || today();
 
 function load() {
   try {
@@ -182,37 +184,88 @@ function render() {
   ({ today: renderToday, cal: renderCal, stats: renderStats, set: renderSettings })[tab]();
 }
 
-function dayCell(d, m, extra = '') {
+function dayCell(d, m, extra = '', ringDay = m.T) {
   const t = m.type[d] || '';
-  const cls = ['day', t, d === m.T ? 'today' : '', hasLog(d) ? 'has' : ''].join(' ');
+  const cls = ['day', t, d === ringDay ? 'today' : '', hasLog(d) ? 'has' : ''].join(' ');
   return `<span class="${cls}">${parse(d).getDate()}</span>${extra}`;
 }
 
 /* ---- Сегодня ---- */
-function ringSvg(m, st) {
-  const N = Math.max(m.L, st.day);
+// цикл, в который попадает дата: {start, len}
+function cycleFor(d, m) {
+  const T = m.T, gs = m.groups;
+  let gi = -1;
+  gs.forEach((g, i) => { if (g.start <= d) gi = i; });
+  if (gi < 0) return null;
+  const g = gs[gi], nx = gs[gi + 1];
+  if (nx) return { start: g.start, len: diff(g.start, nx.start) };
+  const curLen = Math.max(m.L, diff(g.start, T) + 1);
+  if (diff(g.start, d) < curLen) return { start: g.start, len: curLen };
+  const p = m.preds.filter(p => p.start <= d).pop();
+  return p ? { start: p.start, len: m.L } : { start: g.start, len: curLen };
+}
+function phaseFor(d, m) {
+  const t = m.type[d];
+  if (t === 'period' || t === 'pred') return 'period';
+  if (t === 'fert' || t === 'ovu') return 'fert';
+  const cy = cycleFor(d, m);
+  if (!cy) return null;
+  return d < add(cy.start, cy.len - m.Lu) ? 'foll' : 'lut';
+}
+function chanceFor(d, m) {
+  const t = m.type[d];
+  if (t === 'ovu') return 'high';
+  if (t === 'fert') return m.ovus.some(o => { const k = diff(d, o); return k >= 0 && k <= 2; }) ? 'high' : 'mid';
+  return 'low';
+}
+
+function ringSvg(m, d0) {
+  const T = m.T, cy = cycleFor(d0, m) || cycleFor(T, m);
+  if (!cy) return '';
+  const si = diff(cy.start, d0), ti = diff(cy.start, T);
+  const N = Math.min(60, Math.max(cy.len, si + 1));
   const c = 150, r = 124;
   const dotR = Math.min(10.5, (2 * Math.PI * r / N) * .37);
   const pt = i => { const rad = (i * 360 / N - 90) * Math.PI / 180; return [c + r * Math.cos(rad), c + r * Math.sin(rad)]; };
   const css = getComputedStyle(document.documentElement);
   const col = n => css.getPropertyValue(n).trim();
   const colors = { period: col('--period'), pred: col('--period'), fert: col('--fert'), ovu: col('--ovu') };
+  const f = n => n.toFixed(2);
   let dots = '';
   for (let i = 0; i < N; i++) {
-    if (i === st.day - 1) continue; // сегодняшний рисуем отдельно, поверх
-    const d = add(m.last.start, i), t = m.type[d];
+    const d = add(cy.start, i), t = m.type[d];
+    if (d === d0 || d === T) continue;            // рисуем отдельно, поверх
     const [x, y] = pt(i);
-    const color = colors[t] || (d <= m.T ? col('--track-2') : col('--track'));
-    const op = t === 'pred' ? .4 : t === 'fert' && d > m.T ? .75 : 1;
+    const color = colors[t] || (d <= T ? col('--track-2') : col('--track'));
+    const op = t === 'pred' ? .4 : t === 'fert' && d > T ? .75 : 1;
     const rr = t === 'ovu' ? dotR + 1.5 : dotR;
-    dots += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${rr.toFixed(2)}" fill="${color}" fill-opacity="${op}"/>`;
+    dots += `<g data-rday="${d}"><circle cx="${f(x)}" cy="${f(y)}" r="${f(dotR + 7)}" fill="transparent"/><circle cx="${f(x)}" cy="${f(y)}" r="${f(rr)}" fill="${color}" fill-opacity="${op}"/></g>`;
   }
-  const [tx, ty] = pt(st.day - 1);
-  const tc = colors[m.type[m.T]] || col('--ink');
-  return `<svg viewBox="0 0 300 300" aria-hidden="true">${dots}
-    <circle class="ring-halo" cx="${tx}" cy="${ty}" r="${dotR + 10}" fill="${tc}" fill-opacity=".18"/>
-    <circle cx="${tx}" cy="${ty}" r="${dotR + 6}" fill="${tc}" stroke="${col('--card')}" stroke-width="3"/>
-    <text x="${tx}" y="${ty}" dy=".35em" text-anchor="middle" font-size="13" font-weight="700" fill="${col('--card')}" font-family="-apple-system, system-ui, sans-serif">${st.day}</text></svg>`;
+  let top = '';
+  if (T !== d0 && ti >= 0 && ti < N) {           // сегодняшний день, когда выбран другой
+    const [x, y] = pt(ti), tc = colors[m.type[T]] || col('--track-2');
+    top += `<g data-rday="${T}"><circle class="ring-halo" cx="${f(x)}" cy="${f(y)}" r="${f(dotR + 8)}" fill="${col('--ink')}" fill-opacity=".1"/>
+      <circle cx="${f(x)}" cy="${f(y)}" r="${f(dotR + 1)}" fill="${tc}" stroke="${col('--ink')}" stroke-width="2.5"/></g>`;
+  }
+  if (si >= 0 && si < N) {                        // выбранный день — крупный, с номером дня цикла
+    const [x, y] = pt(si), sc = colors[m.type[d0]] || col('--ink');
+    top += `${d0 === T ? `<circle class="ring-halo" cx="${f(x)}" cy="${f(y)}" r="${f(dotR + 10)}" fill="${sc}" fill-opacity=".18"/>` : ''}
+      <circle cx="${f(x)}" cy="${f(y)}" r="${f(dotR + 6)}" fill="${sc}" stroke="${col('--card')}" stroke-width="3"/>
+      <text x="${f(x)}" y="${f(y)}" dy=".35em" text-anchor="middle" font-size="13" font-weight="700" fill="${col('--card')}" font-family="-apple-system, system-ui, sans-serif">${si + 1}</text>`;
+  }
+  return `<svg viewBox="0 0 300 300">${dots}${top}</svg>`;
+}
+
+function dayTags(rec) {
+  const tags = [];
+  if (rec.period) tags.push(`<span class="tag p">${FLOW_NAME[rec.period]}</span>`);
+  for (const k of ['symptoms', 'mood']) (rec[k] || []).forEach(x => tags.push(`<span class="tag">${esc(x)}</span>`));
+  if (rec.discharge) tags.push(`<span class="tag">Выделения: ${esc(rec.discharge.toLowerCase())}</span>`);
+  if (rec.sex) tags.push(`<span class="tag">Секс: ${esc(rec.sex.toLowerCase())}</span>`);
+  if (rec.temp) tags.push(`<span class="tag">${esc(rec.temp)} °C</span>`);
+  if (rec.weight) tags.push(`<span class="tag">${esc(rec.weight)} кг</span>`);
+  if (rec.note) tags.push(`<span class="tag">📝 ${esc(rec.note.length > 40 ? rec.note.slice(0, 40) + '…' : rec.note)}</span>`);
+  return tags;
 }
 
 function renderToday() {
@@ -225,56 +278,70 @@ function renderToday() {
     return;
   }
 
-  const chanceTxt = { low: 'Низкая вероятность беременности', mid: 'Средняя вероятность беременности', high: 'Высокая вероятность беременности' }[st.chance];
+  const D = selDay(), isT = D === T, future = D > T;
+  const sameYear = D.slice(0, 4) === T.slice(0, 4);
+  const title = isT ? 'Сегодня' : D === add(T, -1) ? 'Вчера' : D === add(T, 1) ? 'Завтра'
+    : cap(fmt(D, sameYear ? { day: 'numeric', month: 'long' } : { day: 'numeric', month: 'long', year: 'numeric' }));
+  const sub = isT ? dateStr : cap(parse(D).toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' }));
+
+  // неделя выбранного дня
+  const mon = add(D, -((parse(D).getDay() + 6) % 7));
   const week = [];
-  for (let i = -3; i <= 3; i++) {
-    const d = add(T, i);
-    week.push(`<button data-day="${d}" class="${d === T ? 'today' : ''}"><span class="wd">${d === T ? 'Сег' : WD[(parse(d).getDay() + 6) % 7]}</span>${dayCell(d, m)}</button>`);
+  for (let i = 0; i < 7; i++) {
+    const d = add(mon, i);
+    week.push(`<button data-sel="${d}" class="${d === T ? 'is-today' : ''}"><span class="wd">${d === T ? 'Сег' : WD[i]}</span>${dayCell(d, m, '', D)}</button>`);
   }
 
-  const rec = dayRec(T);
-  const tags = [];
-  if (rec.period) tags.push(`<span class="tag p">${FLOW_NAME[rec.period]}</span>`);
-  for (const k of ['symptoms', 'mood']) (rec[k] || []).forEach(x => tags.push(`<span class="tag">${esc(x)}</span>`));
-  if (rec.discharge) tags.push(`<span class="tag">Выделения: ${esc(rec.discharge.toLowerCase())}</span>`);
-  if (rec.sex) tags.push(`<span class="tag">Секс: ${esc(rec.sex.toLowerCase())}</span>`);
-  if (rec.temp) tags.push(`<span class="tag">${esc(rec.temp)} °C</span>`);
-  if (rec.weight) tags.push(`<span class="tag">${esc(rec.weight)} кг</span>`);
-  if (rec.note) tags.push(`<span class="tag">📝 Заметка</span>`);
+  // центр кольца
+  let c;
+  if (isT) {
+    const btn = st.inPeriod ? `<button class="btn sm ghost" data-act="end">Закончились</button>` : `<button class="btn sm" data-act="start">Месячные начались</button>`;
+    c = { t1: st.t1, t2: st.t2, t3: st.t3, cls: st.cls, btn, chance: st.chance, phase: st.phase };
+  } else {
+    const cy = cycleFor(D, m), t = m.type[D], ph = phaseFor(D, m);
+    const pre = future ? 'Прогноз: ' : '';
+    const label = t === 'period' ? 'Месячные' : t === 'pred' ? 'Прогноз: месячные' : t === 'ovu' ? pre + 'овуляция'
+      : t === 'fert' ? pre + 'фертильное окно' : ph ? PHASES[ph].name : '';
+    c = { t1: 'День цикла', t2: cy ? String(diff(cy.start, D) + 1) : '—', t3: cap(label),
+      cls: t === 'period' || t === 'pred' ? 'period' : t === 'fert' || t === 'ovu' ? 'fert' : '',
+      btn: `<button class="btn sm ghost" data-act="sel-today">Вернуться к сегодня</button>`,
+      chance: chanceFor(D, m), phase: ph || 'foll' };
+  }
+  const chanceTxt = { low: 'Низкая вероятность беременности', mid: 'Средняя вероятность беременности', high: 'Высокая вероятность беременности' }[c.chance];
 
-  const ph = PHASES[st.phase];
-  const btn = st.inPeriod
-    ? `<button class="btn sm ghost" data-act="end">Закончились</button>`
-    : `<button class="btn sm" data-act="start">Месячные начались</button>`;
+  const rec = dayRec(D), tags = dayTags(rec), ph = PHASES[c.phase];
+  const dShort = D === add(T, -1) ? 'вчера' : fmt(D);
 
   view.innerHTML = `<div class="fade">
-    <div class="hd"><div><h1>Сегодня</h1><div class="date">${dateStr}</div></div>
-      <button class="icon-btn" data-tab-go="cal" aria-label="Календарь"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button></div>
-    <div class="week">${week.join('')}</div>
-    <div class="ring-wrap">${ringSvg(m, st)}
-      <div class="ring-c ${st.cls}">
-        <div class="t1">${st.t1}</div><div class="t2">${st.t2}</div><div class="t3">${st.t3}</div>
-        ${btn}
+    <div class="hd"><div><h1>${title}</h1><div class="date">${sub}</div></div>
+      ${isT ? `<button class="icon-btn" data-tab-go="cal" aria-label="Календарь"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>`
+        : `<button class="btn sm ghost" data-act="sel-today">Сегодня</button>`}</div>
+    <div class="week" id="week">
+      <button class="wk-arrow" data-act="wk-prev" aria-label="Прошлая неделя"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      ${week.join('')}
+      <button class="wk-arrow" data-act="wk-next" aria-label="Следующая неделя"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="ring-wrap">${ringSvg(m, D)}
+      <div class="ring-c ${c.cls}">
+        <div class="t1">${c.t1}</div><div class="t2">${c.t2}</div><div class="t3">${c.t3}</div>
+        ${c.btn}
       </div>
     </div>
-    <div style="text-align:center;margin-bottom:18px"><span class="chance ${st.chance}"><i></i>${chanceTxt}</span></div>
-    <div class="quick">${QUICK.map(([k, n, ico, c]) => {
+    <div style="text-align:center;margin-bottom:18px"><span class="chance ${c.chance}"><i></i>${chanceTxt}</span></div>
+    ${future ? '' : `<div class="quick">${QUICK.map(([k, n, ico, col]) => {
       const done = k === 'temp' ? rec.temp || rec.weight : Array.isArray(rec[k]) ? rec[k].length : rec[k];
-      return `<button data-quick="${k}" class="${done ? 'done' : ''}" style="--qc:${c}"><span class="q-ico">${ico}</span><span class="q-lbl">${n}</span></button>`;
+      return `<button data-quick="${k}" class="${done ? 'done' : ''}" style="--qc:${col}"><span class="q-ico">${ico}</span><span class="q-lbl">${n}</span></button>`;
     }).join('')}</div>
     <div class="card">
-      <div class="logrow"><div><h2 style="margin:0 0 4px">Как ты сегодня?</h2>
-        <div class="muted small">${tags.length ? 'Записано за сегодня' : 'Симптомы, настроение, выделения'}</div></div>
-        <button class="addbtn" data-day="${T}" aria-label="Добавить"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+      <div class="logrow"><div><h2 style="margin:0 0 4px">${isT ? 'Как ты сегодня?' : `Записи за ${dShort}`}</h2>
+        <div class="muted small">${tags.length ? (isT ? 'Записано за сегодня' : 'Что было отмечено') : isT ? 'Симптомы, настроение, выделения' : 'Ничего не записано'}</div></div>
+        <button class="addbtn" data-day="${D}" aria-label="Добавить"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
       ${tags.length ? `<div class="chips" style="margin-top:14px">${tags.join('')}</div>` : ''}
     </div>
-    ${healthCard()}
+    ${healthCard(D)}`}
     <div class="card"><div class="phase"><div class="ph-dot" style="background:${ph.bg}">${ph.ico}</div>
       <div><h3>${ph.name}</h3><p>${ph.tip}</p></div></div></div>
-    <div class="card">
-      <h2>Ближайшие события</h2>
-      ${upcoming(m, st)}
-    </div>
+    ${isT ? `<div class="card"><h2>Ближайшие события</h2>${upcoming(m, st)}</div>` : ''}
   </div>`;
 }
 
@@ -413,7 +480,10 @@ function renderSettings() {
 
     <div class="group-t">Apple Здоровье</div>
     <div class="group">
-      <button class="row" data-act="h-import"><div class="rt"><div>Загрузить из Здоровья</div><div>${S.healthAt ? 'Последний раз: ' + new Date(S.healthAt).toLocaleString('ru-RU', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'Через команду в приложении «Команды»'}</div></div><span class="chev">›</span></button>
+      <button class="row" data-act="h-sync"><div class="rt"><div>Синхронизировать сейчас</div><div>Запустить команду и загрузить данные</div></div><span class="chev">›</span></button>
+      <button class="row" data-act="h-import"><div class="rt"><div>Вставить из буфера</div><div>${S.healthAt ? 'Последний раз: ' + new Date(S.healthAt).toLocaleString('ru-RU', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'Через команду в приложении «Команды»'}</div></div><span class="chev">›</span></button>
+      <div class="row"><div class="rt"><div>Название команды</div><div>Как она называется в «Командах»</div></div>
+        <input class="txt" data-set="shortcutName" value="${esc(st.shortcutName)}" autocomplete="off" autocorrect="off"></div>
       <button class="row" data-act="h-help"><div class="rt"><div>Как настроить команду</div></div><span class="chev">›</span></button>
     </div>
 
@@ -634,16 +704,21 @@ function toast(msg) {
 }
 
 document.addEventListener('click', e => {
-  const el = e.target.closest('button, [data-close]');
+  const el = e.target.closest('button, [data-close], [data-rday]');
   if (!el) return;
   const ds = el.dataset;
 
   if (ds.close !== undefined) return closeSheet();
-  if (ds.tab) { if (editing) return; tab = ds.tab; render(); window.scrollTo(0, 0); return; }
+  if (ds.tab) { if (editing) return; if (ds.tab === 'today' && tab === 'today') sel = null; tab = ds.tab; render(); window.scrollTo(0, 0); return; }
   if (ds.tabGo) { tab = ds.tabGo; calMonth = today().slice(0, 7); render(); return; }
+  if (ds.sel || ds.rday) {
+    const d = ds.sel || ds.rday;
+    if (d === selDay() && d <= today()) return openDay(d);   // повторный тап — открыть запись
+    sel = d === today() ? null : d; render(); return;
+  }
   if (ds.day) return openDay(ds.day);
   if (ds.quick) {
-    openDay(today());
+    openDay(selDay());
     const body = $('#sheet-body'), sec = $('#sec-' + ds.quick);
     if (sec) {
       body.scrollTop = sec.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 72;
@@ -697,6 +772,10 @@ document.addEventListener('click', e => {
     case 'edit': editing = true; editSnapshot = JSON.stringify(S.days); return render();
     case 'edit-done': editing = false; editSnapshot = null; return render();
     case 'edit-cancel': editing = false; S.days = JSON.parse(editSnapshot); editSnapshot = null; save(); return render();
+    case 'sel-today': sel = null; return render();
+    case 'wk-prev': sel = add(selDay(), -7); if (sel === today()) sel = null; return render();
+    case 'wk-next': sel = add(selDay(), 7); if (sel === today()) sel = null; return render();
+    case 'h-sync': return runHealthShortcut();
     case 'export': return exportData();
     case 'import': return $('#file').click();
     case 'ics': return exportIcs();
@@ -724,6 +803,7 @@ document.addEventListener('click', e => {
 
 document.addEventListener('change', e => {
   if (e.target.dataset.set === 'auto') { S.settings.auto = e.target.checked; save(); render(); }
+  if (e.target.dataset.set === 'shortcutName') { S.settings.shortcutName = e.target.value.trim() || DEF_SETTINGS.shortcutName; save(); toast('Сохранено'); }
   if (e.target.id === 'ob-start') ob.start = e.target.value;
   if (e.target.id === 'file' && e.target.files[0]) { importData(e.target.files[0]); e.target.value = ''; }
 });
@@ -740,6 +820,23 @@ view.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - tx0, dy = e.changedTouches[0].clientY - ty0;
   tx0 = null;
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) shiftMonth(dx < 0 ? 1 : -1);
+}, { passive: true });
+
+// свайп по неделе — листать недели
+let wx0 = null, wy0 = null;
+view.addEventListener('touchstart', e => {
+  if (tab !== 'today' || !e.target.closest('#week, .ring-wrap')) return;
+  wx0 = e.touches[0].clientX; wy0 = e.touches[0].clientY;
+}, { passive: true });
+view.addEventListener('touchend', e => {
+  if (wx0 === null) return;
+  const dx = e.changedTouches[0].clientX - wx0, dy = e.changedTouches[0].clientY - wy0, onWeek = !!e.target.closest('#week');
+  wx0 = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    sel = add(selDay(), (dx < 0 ? 1 : -1) * (onWeek ? 7 : 1));
+    if (sel === today()) sel = null;
+    render();
+  }
 }, { passive: true });
 
 // свайп листа вниз — закрыть

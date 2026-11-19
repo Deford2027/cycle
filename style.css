@@ -371,3 +371,13 @@ textarea { resize: none; min-height: 84px; }
 .h-help li { margin-bottom: 8px; }
 .h-help p:last-child, .h-help ol:last-child { margin-bottom: 0; }
 .h-tpl { background: var(--card-2); border-radius: 10px; padding: 10px 12px; margin: 8px 0; line-height: 2; font-size: 14px; }
+
+/* неделя со стрелками и выбор дня */
+.week { grid-template-columns: 22px repeat(7, 1fr) 22px; align-items: center; }
+.wk-arrow { display: grid; place-items: center; height: 60px; color: var(--ink-3); }
+.wk-arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.week .is-today .wd { color: var(--period); }
+.week .is-today .day:not(.period):not(.fert):not(.ovu):not(.pred) { color: var(--period); font-weight: 750; }
+.ring-wrap [data-rday] { cursor: pointer; }
+.txt { width: 150px; border: 1.5px solid var(--line); background: var(--card-2); border-radius: 10px; padding: 8px 10px; text-align: right; outline: none; color: var(--ink); }
+.txt:focus { border-color: var(--period); }

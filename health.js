@@ -180,35 +180,59 @@ function wtempDev(d) {
   return v - base.reduce((a, b) => a + b, 0) / base.length;
 }
 
-function healthCard() {
+function healthCard(d) {
   const H = S.health || {}, T = today();
-  const has = Object.keys(H).length;
-  if (!has) {
+  d = d || T;
+  if (!Object.keys(H).length) {
     return `<div class="card"><div class="logrow"><div><h2 style="margin:0 0 4px">Данные из Здоровья</h2>
       <div class="muted small">Сон, шаги, вес, температура и тренировки</div></div>
       <button class="btn sm ghost" data-act="h-help">Настроить</button></div></div>`;
   }
-  const lastWith = k => { for (let i = 0; i < 4; i++) { const d = add(T, -i); if (H[d]?.[k] != null) return [d, H[d][k]]; } return null; };
-  const sl = lastWith('sleep'), stp = H[T]?.steps, kc = H[T]?.kcal;
-  let w = null; for (let i = 0; i < 30 && !w; i++) { const d = add(T, -i); if (H[d]?.weight != null) w = H[d].weight; }
-  const wt = lastWith('wtemp'), dev = wt ? wtempDev(wt[0]) : null;
-  const work = H[T]?.work || [];
+  const h = H[d] || {}, isT = d === T;
+  let sl = h.sleep != null ? [d, h.sleep] : null;
+  if (!sl && isT) for (let i = 1; i < 4 && !sl; i++) { const x = add(T, -i); if (H[x]?.sleep != null) sl = [x, H[x].sleep]; }
+  let w = null; for (let i = 0; i < 30 && !w; i++) { const x = add(d, -i); if (H[x]?.weight != null) w = [x, H[x].weight]; }
+  const dev = h.wtemp != null ? wtempDev(d) : null;
+  const work = h.work || [];
   const items = [];
-  if (sl) items.push(['😴', fmtMin(sl[1]), sl[0] === T ? 'сон этой ночью' : 'последний сон']);
-  if (stp != null) items.push(['👟', fmtNum(stp), 'шагов сегодня']);
-  if (kc != null) items.push(['🔥', `${fmtNum(kc)} ккал`, 'активность']);
-  if (w != null) items.push(['⚖️', `${fmtDec(w)} кг`, 'вес']);
-  if (wt) items.push(['🌡️', dev != null ? `${dev >= 0 ? '+' : '−'}${fmtDec(Math.abs(dev), 2)}°` : `${fmtDec(wt[1], 2)}°`, dev != null ? 't° запястья к норме' : 't° запястья']);
+  if (sl) items.push(['😴', fmtMin(sl[1]), sl[0] === d ? (isT ? 'сон этой ночью' : `сон в ночь на ${fmtShort(d)}`) : 'последний сон']);
+  if (h.steps != null) items.push(['👟', fmtNum(h.steps), isT ? 'шагов сегодня' : 'шагов за день']);
+  if (h.kcal != null) items.push(['🔥', `${fmtNum(h.kcal)} ккал`, 'активность']);
+  if (w) items.push(['⚖️', `${fmtDec(w[1])} кг`, w[0] === d ? 'вес' : `вес на ${fmtShort(w[0])}`]);
+  if (h.wtemp != null) items.push(['🌡️', dev != null ? `${dev >= 0 ? '+' : '−'}${fmtDec(Math.abs(dev), 2)}°` : `${fmtDec(h.wtemp, 2)}°`, dev != null ? 't° запястья к норме' : 't° запястья']);
+  if (h.btemp != null) items.push(['🌡️', `${fmtDec(h.btemp, 2)}°`, 'базальная t°']);
   if (work.length) items.push(['🏃', `${work.reduce((a, x) => a + x.min, 0)} мин`, work.map(x => x.n).join(', ').toLowerCase()]);
   const at = S.healthAt ? new Date(S.healthAt) : null;
   const atTxt = at ? (iso(at) === T ? `сегодня в ${at.toTimeString().slice(0, 5)}` : fmt(iso(at))) : '';
   return `<div class="card">
     <div class="logrow" style="margin-bottom:12px"><div><h2 style="margin:0 0 2px">Здоровье</h2><div class="muted small">обновлено ${atTxt}</div></div>
-      <button class="btn sm ghost" data-act="h-import">Обновить</button></div>
+      <button class="btn sm" data-act="h-sync">↻ Обновить</button></div>
     ${items.length ? `<div class="h-grid">${items.map(([i, v, l]) => `<div class="h-item"><span class="h-ico">${i}</span><b>${v}</b><span>${esc(l)}</span></div>`).join('')}</div>`
-      : '<div class="muted small">За последние дни данных нет — запусти команду и нажми «Обновить».</div>'}
+      : `<div class="muted small">${isT ? 'За сегодня данных пока нет.' : 'За этот день данных нет — команда загружает последние 14 дней.'}</div>`}
+    <div style="margin-top:10px;text-align:right"><button class="link" data-act="h-import" style="font-size:14px">Вставить из буфера</button></div>
   </div>`;
 }
+
+/* запуск команды из приложения; по возвращении предлагаем загрузить данные */
+let hSyncAt = 0;
+function runHealthShortcut() {
+  const name = S.settings.shortcutName || 'Цикл Здоровье';
+  hSyncAt = Date.now();
+  location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(name);
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible' || !hSyncAt || Date.now() - hSyncAt > 5 * 60e3) return;
+  hSyncAt = 0;
+  setTimeout(() => showSheet(`
+    <div class="sh-hd"><div><h2>Данные готовы?</h2><div class="sub">Команда «${esc(S.settings.shortcutName)}» должна была скопировать их</div></div>
+      <button class="btn sm ghost" data-close>Закрыть</button></div>
+    <div class="sec" style="text-align:center;padding:22px 16px">
+      <div style="font-size:40px;margin-bottom:8px">❤️‍🩹</div>
+      <p class="muted" style="margin:0 0 16px">Нажми кнопку, затем «Вставить» во всплывающем окне iOS.</p>
+      <button class="btn block" data-act="h-import">Загрузить из Здоровья</button>
+    </div>
+    <p class="note" style="margin:0 4px">Если «Команды» не открылись — проверь название команды в Настройках → Apple Здоровье.</p>`), 350);
+});
 
 function healthDaySection(d) {
   const h = (S.health || {})[d];
