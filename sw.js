@@ -1,6 +1,6 @@
 // Сеть в приоритете (чтобы обновления приходили сразу), кэш — для работы офлайн.
-const CACHE = 'cycle-v2';
-const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'health.js', 'manifest.webmanifest',
+const CACHE = 'cycle-v3';
+const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'health.js', 'sync.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {

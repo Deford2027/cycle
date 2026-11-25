@@ -72,6 +72,7 @@ function load() {
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(S)); }
   catch (e) { toast('Не удалось сохранить'); }
+  Sync.touch('cycle');
 }
 const isPeriod = d => !!(d && d.period && d.period !== 'spotting');
 const dayRec = d => S.days[d] || {};
@@ -868,6 +869,12 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') hiddenAt = Date.now();
   else if (hiddenAt && Date.now() - hiddenAt > 60e3 && $('#lock').hidden) checkLock();
 });
+
+/* ---------- общие записи (sync.js) ---------- */
+const syncReady = () => $('#sheet').hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+window.addEventListener('storage', e => { if (e.key === KEY && e.newValue) { const n = load(); if (n) { S = n; if (syncReady()) render(); } } });
+Sync.add('cycle', { get: () => S, ready: syncReady, apply: v => { localStorage.setItem(KEY, JSON.stringify(v)); S = load(); render(); } });
+Sync.start();
 
 /* ---------- старт ---------- */
 if (['today', 'cal', 'stats', 'set'].includes(location.hash.slice(1))) tab = location.hash.slice(1);

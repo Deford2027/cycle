@@ -218,7 +218,7 @@ let hSyncAt = 0;
 function runHealthShortcut() {
   const name = S.settings.shortcutName || 'Цикл Здоровье';
   hSyncAt = Date.now();
-  location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(name);
+  (Sync.embedded ? window.top : window).location.href = 'shortcuts://run-shortcut?name=' + encodeURIComponent(name);
 }
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState !== 'visible' || !hSyncAt || Date.now() - hSyncAt > 5 * 60e3) return;
