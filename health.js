@@ -4,8 +4,11 @@
    КОДЫ: SLEEP STEPS KCAL WEIGHT WTEMP BTEMP WORK
    Подключается до app.js; функции app.js (iso, add, S, …) вызываются только во время работы. */
 
-const H_CODES = ['SLEEP', 'STEPS', 'KCAL', 'WEIGHT', 'WTEMP', 'BTEMP', 'WORK'];
-const H_NAMES = { SLEEP: 'сон', STEPS: 'шаги', KCAL: 'активность', WEIGHT: 'вес', WTEMP: 't° запястья', BTEMP: 'базальная t°', WORK: 'тренировки' };
+const H_CODES = ['SLEEP', 'STEPS', 'KCAL', 'WEIGHT', 'WTEMP', 'BTEMP', 'WORK', 'EAT', 'PROT', 'FAT', 'CARB', 'WATER'];
+const H_NAMES = { SLEEP: 'сон', STEPS: 'шаги', KCAL: 'активность', WEIGHT: 'вес', WTEMP: 't° запястья', BTEMP: 'базальная t°', WORK: 'тренировки', EAT: 'съедено', PROT: 'белки', FAT: 'жиры', CARB: 'углеводы', WATER: 'вода' };
+// поле дня в S.health для каждого кода; суммы за день – SUM
+const H_FIELD = { SLEEP: 'sleep', STEPS: 'steps', KCAL: 'kcal', WEIGHT: 'weight', WTEMP: 'wtemp', BTEMP: 'btemp', WORK: 'work', EAT: 'eat', PROT: 'prot', FAT: 'fat', CARB: 'carb', WATER: 'water' };
+const H_SUM = ['STEPS', 'KCAL', 'EAT', 'PROT', 'FAT', 'CARB', 'WATER'];
 const RU_MON = ['янв', 'фев', 'мар', 'апр', 'ма', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
 
 function hNum(s) {
@@ -81,10 +84,10 @@ function aggregateHealth(rows) {
   for (const r of rows) {
     const v = hNum(r.val);
     cnt[r.code] = (cnt[r.code] || 0) + 1;
-    if (r.code === 'STEPS' || r.code === 'KCAL') {
+    if (H_SUM.includes(r.code)) {
       if (v == null) continue;
-      const k = r.code === 'STEPS' ? 'steps' : 'kcal', d = iso(r.st);
-      g(d)[k] = (g(d)[k] || 0) + v;
+      const k = H_FIELD[r.code], d = iso(r.st);
+      g(d)[k] = (g(d)[k] || 0) + (r.code === 'WATER' && v < 10 ? v * 1000 : v);   // вода: литры → мл
     } else if (r.code === 'WEIGHT' || r.code === 'BTEMP' || r.code === 'WTEMP') {
       if (v == null) continue;
       const k = { WEIGHT: 'weight', BTEMP: 'btemp', WTEMP: 'wtemp' }[r.code];
@@ -110,7 +113,7 @@ function aggregateHealth(rows) {
   for (const d of Object.keys(H)) {
     const h = H[d];
     if (h.steps != null) h.steps = Math.round(h.steps);
-    if (h.kcal != null) h.kcal = Math.round(h.kcal);
+    for (const k of ['kcal', 'eat', 'prot', 'fat', 'carb', 'water']) if (h[k] != null) h[k] = Math.round(h[k]);
     if (h.weight != null) h.weight = Math.round(h.weight * 10) / 10;
     if (h.wtemp != null) h.wtemp = Math.round(h.wtemp * 100) / 100;
     if (h.btemp != null) h.btemp = Math.round(h.btemp * 100) / 100;
@@ -125,7 +128,7 @@ function applyHealth(text) {
   S.health ||= {};
   // поля из нового импорта заменяют старые за те же даты
   const touched = new Set(rows.map(r => r.code));
-  const fields = { SLEEP: 'sleep', STEPS: 'steps', KCAL: 'kcal', WEIGHT: 'weight', WTEMP: 'wtemp', BTEMP: 'btemp', WORK: 'work' };
+  const fields = H_FIELD;
   const dates = Object.keys(H);
   for (const d of dates) {
     const cur = { ...(S.health[d] || {}) };
@@ -242,6 +245,7 @@ function healthDaySection(d) {
   if (h.steps != null) rows.push(['Шаги', fmtNum(h.steps)]);
   if (h.kcal != null) rows.push(['Активные калории', `${fmtNum(h.kcal)} ккал`]);
   if (h.weight != null) rows.push(['Вес', `${fmtDec(h.weight)} кг`]);
+  if (h.eat != null) rows.push(['Съедено', `${fmtNum(h.eat)} ккал`]);
   if (h.wtemp != null) { const dv = wtempDev(d); rows.push(['t° запястья', `${fmtDec(h.wtemp, 2)}°${dv != null ? ` (${dv >= 0 ? '+' : '−'}${fmtDec(Math.abs(dv), 2)})` : ''}`]); }
   if (h.btemp != null) rows.push(['Базальная t°', `${fmtDec(h.btemp, 2)}°`]);
   for (const w of h.work || []) rows.push([w.n, `${w.min} мин`]);
@@ -346,6 +350,9 @@ function healthHelp() {
       <div class="h-row"><span>Температура запястья во сне <span class="muted">(если есть в списке)</span></span>${code('WTEMP')}</div>
       <div class="h-row"><span>Базальная температура тела</span>${code('BTEMP')}</div>
       <div class="h-row"><span>Тренировки <span class="muted">(вместо «Значение» — «Тип»)</span></span>${code('WORK')}</div>
+      <div class="h-row"><span>Потреблённая энергия <span class="muted">(Yazio, «День»)</span></span>${code('EAT')}</div>
+      <div class="h-row"><span>Белки / Жиры / Углеводы <span class="muted">(Yazio, «День»)</span></span>${code('PROT')} ${code('FAT')} ${code('CARB')}</div>
+      <div class="h-row"><span>Вода <span class="muted">(«День»)</span></span>${code('WATER')}</div>
       <p class="muted">Если дублируешь блок — проверь, что переменные в новом «Тексте» ссылаются на новый «Найти образцы», а не на первый. Лишние блоки можно не делать.</p>
     </div>
     <div class="sec h-help">

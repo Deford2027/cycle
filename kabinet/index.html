@@ -114,6 +114,23 @@ fieldset{border:0;padding:0;margin:0 0 12px;display:flex;gap:6px;flex-wrap:wrap}
 @media(max-width:860px){#gate h1{font-size:52px}.gq{font-size:54px}.gq.sm{font-size:27px}.gn{gap:26px}.gn b{font-size:42px}}
 .gh{display:flex;gap:5px;align-items:flex-end;height:58px}.gh i{width:13px;border-radius:4px;background:#B6D98C}.gh i.n{background:var(--dark)}.gp small{font-size:17px}
 .cyf{padding:0;overflow:hidden}.cyf iframe{display:block;width:100%;height:min(860px,82dvh);border:0}
+/* Здоровье: тело и цикл */
+.big small{font-size:15px;font-weight:600;letter-spacing:0;color:var(--mut)}
+.two2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hch{display:block;width:100%;height:auto;margin-top:14px;overflow:visible}.hch text{font-size:10px;fill:var(--mut)}
+.mac{display:grid;grid-template-columns:78px 1fr 58px;align-items:center;gap:10px;margin-top:10px;font-size:13.5px}.mac>div{height:9px;border-radius:9px;background:var(--soft);overflow:hidden}.mac i{display:block;height:100%;border-radius:9px}.mac b{text-align:right}
+.hb{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;align-items:end}.hb>div{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}.hb>div:before{content:'';display:block;height:0}.hb i{display:block;width:100%;max-width:34px;background:#dfe6d6;border-radius:8px 8px 4px 4px;align-self:center}.hb i.ok{background:var(--lime)}.hb>div{height:112px;justify-content:flex-end}.hb b{font-size:11.5px}.hb span{font-size:11px;color:var(--mut)}
+.tw{overflow-x:auto;margin-top:14px}.btab{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}.btab th{text-align:left;font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:6px 8px}.btab td{padding:9px 8px;border-top:1px solid var(--line);font-weight:600;white-space:nowrap}.btab small{display:block;font-size:11px;font-weight:600}.btab .dn{color:#4f8a2c}.btab .up{color:#a05a4e}
+.due{color:#8c2f25}
+.kv{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.kv>div{background:var(--soft);border-radius:18px;padding:14px 16px}.kv b{display:block;font-size:19px;letter-spacing:-.02em}.kv span{color:var(--mut);font-size:12.5px}
+.cyr{display:grid;grid-template-columns:62px 1fr 90px;align-items:center;gap:10px;margin-top:9px;font-size:13.5px}.cyr>div{display:flex;height:12px;border-radius:9px;background:var(--soft);overflow:hidden}.cyr i{display:block;height:100%;background:#e8f3d8}.cyr i.p{background:#f2b8bd}.cyr b{text-align:right;font-size:13px}
+.cyc .t-period button{background:#f2b8bd}.cyc .t-pred button{background:#fdf0f1;box-shadow:inset 0 0 0 1.5px #e9a2aa}.cyc .t-fert button{background:#f3e6f6}.cyc .t-ovu button{background:#c98fd3;color:#fff}
+.cyc .d button{position:relative}.cyc .d button i{position:absolute;bottom:3px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--dark)}.cyc .d button:disabled{opacity:.55;cursor:default}
+.dot.pr{background:#fdf0f1;box-shadow:inset 0 0 0 1.5px #e9a2aa}
+.cdm .chips{gap:6px}.cdm .chip{padding:7px 12px}.hraw{white-space:pre-wrap;background:var(--soft);border-radius:12px;padding:10px;font-size:12px;overflow:auto}
+.hhelp p{margin:10px 0}.hhelp code,.modal code{background:var(--soft);border-radius:7px;padding:2px 7px;font-weight:700;font-size:13px}
+@media(max-width:860px){.kv{grid-template-columns:repeat(2,minmax(0,1fr))}.cyr{grid-template-columns:54px 1fr 80px}}
+.cleg span{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -278,7 +295,7 @@ const I=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n
 const KIND={recipe:['Рецепт','Рецепты','🍲'],hack:['Лайфхак','Лайфхаки','💡'],idea:['Идея','Идеи','✨']},SYM=['спазмы','головная боль','усталость','тяга к сладкому','отёки','чувствительность','прилив сил','тревожность'];
 const PH=[{n:'Менструация',e:'🌙',eat:'железо и тепло: гречка, красное мясо или чечевица, зелень, супы, какао',go:'прогулка, мягкая растяжка, спокойная йога. При сильной боли – отдых'},{n:'Фолликулярная',e:'🌱',eat:'белок и свежее: яйца, рыба, овощи, крупы, кефир',go:'энергия растёт: силовая, бег, новые упражнения'},{n:'Овуляция',e:'🌸',eat:'клетчатка и вода: ягоды, листовой салат, орехи, цельные злаки',go:'пик сил: интервалы, танцы, силовая. Не забывай разминку'},{n:'Лютеиновая',e:'🍂',eat:'сытные углеводы и магний: батат, овсянка, бананы, тёмный шоколад',go:'умеренно: пилатес, плавание, ходьба. Ближе к концу – легче'}];
 const COLORS=['#8fb3a7','#c98fd3','#8db76a','#e0a83f','#d98b7e','#7f9ecb'];
-function blank(){return{v:4,cur:'BYN',rate:.5,howto:true,gate:{mode:'day',lvl:2,log:{},best:null,skip:'',hist:[]},money:[],name:'',menu:'top',journal:false,langCode:'en-US',langName:'Английский',created:today(),days:{},areas:[],tasks:[],rep:[],goals:[],habits:[],focus:[],timer:{dur:25,area:'',end:null,left:null},words:[],known:[],texts:[],posts:[],ideas:[],bank:[],workouts:[],meals:[],cycle:{starts:[],len:28,per:5},own:[],rewards:[],buys:[],bonus:0,plan:{wake:'08:00',bed:'23:00',work:false,ws:'10:00',we:'18:00',wd:[0,1,2,3,4],eng:true,sport:true,dinner:true,read:true,goal:true}}}
+function blank(){return{v:4,cur:'BYN',rate:.5,howto:true,gate:{mode:'day',lvl:2,log:{},best:null,skip:'',hist:[]},money:[],name:'',menu:'top',journal:false,langCode:'en-US',langName:'Английский',created:today(),days:{},areas:[],tasks:[],rep:[],goals:[],habits:[],focus:[],timer:{dur:25,area:'',end:null,left:null},words:[],known:[],texts:[],posts:[],ideas:[],bank:[],workouts:[],meals:[],body:[],cycle:{starts:[],len:28,per:5},own:[],rewards:[],buys:[],bonus:0,plan:{wake:'08:00',bed:'23:00',work:false,ws:'10:00',we:'18:00',wd:[0,1,2,3,4],eng:true,sport:true,dinner:true,read:true,goal:true,body:true,bdow:6}}}
 const FR=['le soir','le matin','la ville','la mer','le pain','la fleur','beaucoup','le chat','la maison','bonjour'];
 function enWords(){return[['evening','вечер','🌆'],['morning','утро','🌅'],['city','город','🏙️'],['sea','море','🌊'],['bread','хлеб','🥖'],['flower','цветок','🌸'],['usually','обычно','🔁'],['kitchen','кухня','🍳'],['window','окно','🪟'],['quiet','тихий','🤫']].map(([w,tr,e],i)=>({id:uid(),w,t:tr,e,box:i%3,next:add(today(),i<8?0:2)}))}
 function enText(){return{id:uid(),title:'A quiet morning by the sea',text:'In the morning I usually walk through the city. The sun is shining and the sea is calm. I buy fresh bread in a small bakery. My cat is still sleeping in the kitchen. In the evening I read a book near the window.'}}
@@ -319,7 +336,7 @@ const r2=n=>Math.round(n*100)/100;
 function norm(x){const b=blank();if(!x||typeof x!='object'||Array.isArray(x)||!x.days||!Array.isArray(x.tasks))return null;
 const isD=s=>typeof s=='string'&&/^\d{4}-\d\d-\d\d$/.test(s)&&iso(D(s))===s,obj=v=>v&&typeof v=='object'&&!Array.isArray(v)?v:{},num=(v,d,a,z)=>Number.isFinite(+v)?Math.min(z,Math.max(a,+v)):d;
 for(const k in b){const v=x[k];if(v==null)continue;if(Array.isArray(b[k])){if(Array.isArray(v))b[k]=v}else if(typeof b[k]=='object')b[k]={...b[k],...obj(v)};else if(typeof v==typeof b[k])b[k]=v}
-for(const k of['money','areas','rep','tasks','goals','habits','focus','words','texts','posts','ideas','bank','workouts','meals','own','rewards','buys'])b[k]=b[k].filter(o=>o&&typeof o=='object').map(o=>({...o,id:String(o.id||uid())}));
+for(const k of['money','areas','rep','tasks','goals','habits','focus','words','texts','posts','ideas','bank','workouts','meals','body','own','rewards','buys'])b[k]=b[k].filter(o=>o&&typeof o=='object').map(o=>({...o,id:String(o.id||uid())}));
 b.known=b.known.filter(s=>typeof s=='string');for(const d in b.days)if(!isD(d))delete b.days[d];else b.days[d]=obj(b.days[d]);
 for(const d in b.days){const r=b.days[d];if(r.wins&&!Array.isArray(r.wins))delete r.wins;if(r.sym&&!Array.isArray(r.sym))delete r.sym}
 b.tasks=b.tasks.filter(t=>isD(t.date));b.tasks.forEach(t=>{if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(t.time||''))t.time='';t.dur=num(t.dur,30,1,1440)});b.posts=b.posts.filter(t=>isD(t.date));
@@ -328,7 +345,7 @@ b.workouts.forEach(w=>{w.log=obj(w.log);w.dow=num(w.dow,0,0,6)});b.words.forEach
 b.own.forEach(o=>{o.items=(Array.isArray(o.items)?o.items:[]).filter(i=>i&&typeof i=='object').map(i=>({...i,id:String(i.id||uid())}))});b.rate=num(b.rate,.5,.01,1000);b.cur=String(b.cur).slice(0,5)||'BYN';b.money.forEach(m=>{m.sum=num(m.sum,0,0,1e7);m.pts=Math.round(num(m.pts,0,0,1e6))});
 if(!(x.v>=4))b.rewards.forEach(r=>{r.cost=r2(num(r.price,20,1,1e6)*b.rate);r.again=!r.wish;const q=num(r.saved,0,0,1e6);if(q)b.money.push({id:uid(),rid:r.id,date:today(),sum:Math.min(r.cost,r2(q*b.rate)),pts:q});delete r.saved;delete r.price;delete r.wish});
 const okR=r=>{r.name=String(r.name||'');r.cost=r2(num(r.cost,1,.01,1e7));['e','link','img'].forEach(k=>r[k]=String(r[k]||''));if(!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(r.img))r.img='';return r};b.rewards.forEach(okR);b.buys.forEach(q=>{q.r=q.r&&typeof q.r=='object'&&q.r.id?okR({...q.r,id:String(q.r.id)}):null;q.date=String(q.date||'')});b.buys.forEach(r=>r.price=num(r.price,0,0,1e6));
-const c=b.cycle;c.starts=[...new Set((Array.isArray(c.starts)?c.starts:[]).filter(isD))].sort();c.len=num(c.len,28,18,60);c.per=num(c.per,5,1,12);b.timer.dur=num(b.timer.dur,25,1,180);b.timer.end=typeof b.timer.end=='number'?b.timer.end:null;b.timer.left=typeof b.timer.left=='number'?b.timer.left:null;if(!(x.v>=2))migrate(b);if(!(x.v>=3))migrate3(b);const pl_=b.plan,bp=blank().plan;for(const k of['wake','bed','ws','we'])if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(pl_[k]))pl_[k]=bp[k];for(const k of['work','eng','sport','dinner','read','goal'])pl_[k]=!!pl_[k];pl_.wd=(Array.isArray(pl_.wd)?pl_.wd:[]).map(Number).filter(n=>n>=0&&n<7);b.tasks.forEach(y=>{y.text=String(y.text||'');if(y.note!=null)y.note=String(y.note)});for(const d in b.days)if(b.days[d].skip&&!Array.isArray(b.days[d].skip))delete b.days[d].skip;b.v=4;const G=b.gate;if(!['day','half','open','off'].includes(G.mode))G.mode='day';G.lvl=Math.round(num(G.lvl,2,1,3));G.best=typeof G.best==='number'&&G.best>0?G.best:null;G.log=obj(G.log);G.skip=String(G.skip||'');G.hist=(Array.isArray(G.hist)?G.hist:[]).map(h=>obj(h)).filter(h=>typeof h.s==='number'&&h.s>0&&isD(h.d)).map(h=>({d:h.d,s:h.s,e:num(h.e,0,0,99)})).slice(-14);b.areas.forEach(a=>{if(!/^#[0-9a-f]{6}$/i.test(a.color))a.color=COLORS[0]});return b}
+const c=b.cycle;c.starts=[...new Set((Array.isArray(c.starts)?c.starts:[]).filter(isD))].sort();c.len=num(c.len,28,18,60);c.per=num(c.per,5,1,12);b.timer.dur=num(b.timer.dur,25,1,180);b.timer.end=typeof b.timer.end=='number'?b.timer.end:null;b.timer.left=typeof b.timer.left=='number'?b.timer.left:null;if(!(x.v>=2))migrate(b);if(!(x.v>=3))migrate3(b);const pl_=b.plan,bp=blank().plan;for(const k of['wake','bed','ws','we'])if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(pl_[k]))pl_[k]=bp[k];for(const k of['work','eng','sport','dinner','read','goal','body'])pl_[k]=!!pl_[k];pl_.bdow=num(pl_.bdow,6,0,6);b.body=b.body.filter(x=>isD(x.date));pl_.wd=(Array.isArray(pl_.wd)?pl_.wd:[]).map(Number).filter(n=>n>=0&&n<7);b.tasks.forEach(y=>{y.text=String(y.text||'');if(y.note!=null)y.note=String(y.note)});for(const d in b.days)if(b.days[d].skip&&!Array.isArray(b.days[d].skip))delete b.days[d].skip;b.v=4;const G=b.gate;if(!['day','half','open','off'].includes(G.mode))G.mode='day';G.lvl=Math.round(num(G.lvl,2,1,3));G.best=typeof G.best==='number'&&G.best>0?G.best:null;G.log=obj(G.log);G.skip=String(G.skip||'');G.hist=(Array.isArray(G.hist)?G.hist:[]).map(h=>obj(h)).filter(h=>typeof h.s==='number'&&h.s>0&&isD(h.d)).map(h=>({d:h.d,s:h.s,e:num(h.e,0,0,99)})).slice(-14);b.areas.forEach(a=>{if(!/^#[0-9a-f]{6}$/i.test(a.color))a.color=COLORS[0]});return b}
 let S,bad=false;try{const raw=localStorage.getItem(KEY);if(raw){S=norm(JSON.parse(raw));if(!S)bad=true}}catch(e){bad=true}
 if(bad)try{localStorage.setItem(KEY+'.broken',localStorage.getItem(KEY)||'')}catch(e){}
 if(!S){S=demo();save()}
@@ -376,6 +393,7 @@ if(want('eng')&&!has('eng')&&!S.tasks.some(x=>x.date===d&&x.auto==='eng')){const
 if(want('sport')&&!S.tasks.some(x=>x.date===d&&(x.auto==='sport'||x.wid))&&!has('sport')){const own=S.workouts.find(w=>w.dow===dow(d)&&!w.log[d]),n=alt.sport||0,easy=en<3||r.rest||(ph&&!ph.late&&ph.i===0),l=easy?MOVES.soft:en>3&&!(ph&&ph.i===3)?MOVES.hard:MOVES.mid,m=pick(l,d,n);if(own&&!n&&!easy)o.push({auto:'sport',text:own.name,dur:35,at:ev,wid:own.id,hab:habit('sport')});else o.push({auto:'sport',text:m[0],dur:m[1],at:ev,note:m[2],hab:habit('sport')})}
 if(want('dinner')&&!has('dinner')&&!S.tasks.some(x=>x.date===d&&x.auto==='dinner')){const l=[...S.bank.filter(x=>x.kind==='recipe'&&!/завтрак|десерт/.test(x.tag)).map(x=>[x.title,Math.min(x.min||30,120),x.ing,x.text]),...DINNERS],q=en<3?l.filter(x=>x[1]<=20):l,m=pick(q.length?q:l,d,alt.dinner||0);o.push({auto:'dinner',text:'Ужин: '+m[0],dur:Math.round(m[1]),at:Math.max(1110,ev+45),note:'Продукты:\n'+m[2]+'\n\nКак готовить:\n'+m[3]})}
 if(want('goal')&&en>2&&!r.rest&&!S.tasks.some(x=>x.date===d&&x.auto==='goal')){const g=S.goals.filter(x=>x.week===monday(d)&&!x.done);if(g.length){const x=pick(g,d,alt.goal||0);o.push({auto:'goal',text:'Шаг к цели: '+x.text,dur:25,at:660,note:'Сделай маленький кусочек. Целиком сегодня не нужно.'})}}
+if(want('body')&&dow(d)===P.bdow&&!S.body.some(x=>x.date>add(d,-6)&&x.date<=d)&&!S.tasks.some(x=>x.date===d&&x.auto==='body'))o.push({auto:'body',text:'Замерить параметры тела',dur:5,at:mins(P.wake)+15,note:'Сантиметр, утром до завтрака: грудь, талия, живот, бёдра, бедро и рука. Записать в Здоровье → Тело → Параметры.',open:'heart'});
 if(want('read')&&!has('read')&&!S.tasks.some(x=>x.date===d&&x.auto==='read'))o.push({auto:'read',text:en<3?'Почитать 10 минут':'Почитать 20 минут',dur:en<3?10:20,at:mins(P.bed)-75,hab:habit('read')});return o}
 function buildPlan(){const d=today(),r=day(d),en=r.rest?1:+r.energy||3,P=S.plan,late=new Set(S.tasks.filter(x=>x.date<d&&!x.done).map(x=>x.id));pullLate();
 S.tasks=S.tasks.filter(x=>!(x.date===d&&x.auto&&!x.done&&x.id!==S.timer.task));S.tasks.forEach(x=>{if(x.date===d&&x.slot&&!x.done){x.time='';x.slot=false}});
@@ -387,13 +405,13 @@ const auto=autoItems(d,en),A1=auto.filter(x=>x.auto==='dinner'),A2=auto.filter(x
 const addA=x=>{const m=put(x.at,x.dur);if(m===null)return;const{at,...y}=x;const aid='auto-'+x.auto+'-'+d;S.tasks.push({id:get('tasks',aid)?uid():aid,area:'',...y,date:d,time:clock(m),done:false});load+=x.dur};
 A1.forEach(addA);A2.filter(x=>x.auto==='eng'||x.auto==='sport').forEach(addA);
 for(const x of flex){const must=x.rep||x.text===r.main;if(!must&&load+x.dur>cap){rest++;continue}const m=put(mins(P.wake)+90,x.dur);if(m===null){rest++;continue}x.time=clock(m);x.slot=true;load+=x.dur}
-A2.filter(x=>x.auto!=='eng'&&x.auto!=='sport').forEach(x=>{if(x.auto==='read'||load+x.dur<=cap)addA(x)});
+A2.filter(x=>x.auto!=='eng'&&x.auto!=='sport').forEach(x=>{if(x.auto==='read'||x.auto==='body'||load+x.dur<=cap)addA(x)});
 if(!r.main){const l=tasksOf(d).filter(x=>!x.done),m=l.find(x=>!x.auto&&x.slot)||l.find(x=>x.auto==='goal')||l.find(x=>x.auto==='eng')||l[0];if(m)S.days[d]={...day(d),main:m.text}}
 S.days[d]={...day(d),built:true,rest_n:rest};save()}
 function pullLate(){const t=today(),seen=new Set(S.tasks.filter(x=>x.rep&&x.date===t).map(x=>x.rep));S.tasks.filter(x=>x.date<t&&!x.done).sort((x,y)=>y.date.localeCompare(x.date)).forEach(x=>{if(x.auto||(x.rep&&seen.has(x.rep)))del('tasks',x.id);else{x.date=t;x.time='';x.slot=false;if(x.rep)seen.add(x.rep)}})}
 const own_=t=>{delete t.auto;t.slot=false};
 
-const U={page:'home',week:0,hm:0,cm:0,bank:'all',tag:'',rnd:0,bday:0,health:'sport',lang:'text',plan:'time',txt:null,ex:null,card:0,flip:false,itog:null,start:false,own:null,wod:0,mday:null,day0:today(),pd:0};
+const U={page:'home',week:0,hm:0,cm:0,bank:'all',tag:'',rnd:0,bday:0,health:'body',hd:0,lang:'text',plan:'time',txt:null,ex:null,card:0,flip:false,itog:null,start:false,own:null,wod:0,mday:null,day0:today(),pd:0};
 const PAGES=[['home','home','Главная'],['week','week','Неделя'],['hab','hab','Привычки'],['lang','lang','Язык'],['bank','bulb','Копилка'],['heart','heart','Здоровье'],['own','own','Моё'],['gift','gift','Награды']];
 const areaOpt=()=>[['','Без раздела'],...S.areas.map(a=>[a.id,a.name])];
 const hero=(h,p,st)=>`<section class="hero"><div><h1>${esc(h)}</h1><p>${esc(p)}</p></div><div class="stats">${st.map(([a,b])=>`<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div></section>`;
@@ -414,7 +432,7 @@ const sc=(k,l,h)=>`<div><div class="lab">${l}</div><div class="scale">${[1,2,3,4
 return `<section class="card wide"><div class="hd"><h2>Сколько сегодня сил?</h2><span class="sp"></span><span class="mut">нажми цифру энергии, и я соберу день</span></div><div class="grid two" style="gap:4px 24px">${sc('energy','Энергия','без сил → полно сил')}${sc('mood','Настроение','грустно → отлично')}</div><div class="lab">Главное на сегодня (если пусто, выберу само)</div><input class="inp" data-c="main" aria-label="Главное на сегодня" value="${esc(d.main||'')}" placeholder="Одна главная вещь сегодня, например «позвонить маме»"><div class="chips" style="margin-top:10px">${ts.filter(x=>!x.done).slice(0,4).map(x=>`<button class="chip o" data-a="mainSet" data-id="${x.id}">${esc(x.text)}</button>`).join('')}${U.start?'<button class="btn m" data-a="startOk">Готово</button>':''}<button class="btn s m" data-a="planSet">Мой обычный день</button></div></section>`}
 function itogCard(dd){const d=day(dd),ts=tasksOf(dd),un=ts.filter(x=>!x.done),w=d.wins||['','',''],doneN=ts.length-un.length;
 return `<section class="card wide" id="itog">${hd('heart','Итог дня · '+fmt(dd),d.closed?'<span class="chip g">✓ закрыт</span>':'','l')}<div class="grid two"><div><div class="lab" style="margin-top:0">День одним словом</div><input class="inp" data-c="word" data-d="${dd}" aria-label="День одним словом" value="${esc(d.word||'')}" placeholder="спокойный"><div class="lab">Что получилось</div>${[0,1,2].map(i=>`<input class="inp" style="margin-bottom:8px" data-c="win" data-d="${dd}" data-i="${i}" aria-label="Что получилось ${i+1}" value="${esc(w[i]||'')}" placeholder="${['например, главное дело','маленькая победа','ещё что-то хорошее'][i]}">`).join('')}</div><div><div class="lab" style="margin-top:0">Что перенести</div>${un.map(x=>`<div class="row"><span class="t">${esc(x.text)}</span><button class="btn s m" data-a="tomorrow" data-id="${x.id}">${dd<today()?'на сегодня':'на завтра'} →</button></div>`).join('')||'<p class="empty">Переносить нечего.</p>'}<p class="mut" style="margin:10px 0">Сделано: ${pl(doneN,'задача','задачи','задач')}, ${pl(S.habits.filter(h=>hdone(h,dd)).length,'привычка','привычки','привычек')}</p><button class="btn" data-a="close" data-d="${dd}">${d.closed?'Открыть день снова':'Закрыть день · +5 🪙'}</button> <button class="btn s" data-a="itogHide">Свернуть</button></div></div></section>`}
-function taskBox(x){return `<div class="task ${x.done?'done':''}" style="border-left-color:${area(x.area)?.color||'#8db76a'}">${ck('task',x.id,x.done)}<div class="t"><button class="tt" data-a="taskEd" data-id="${x.id}">${x.rep?'↻ ':''}${esc(x.text)}</button><div class="mut">${x.time?x.time+'–'+clock(Math.min(1439,mins(x.time)+x.dur))+' · ':''}${hm(x.dur)}</div>${x.done?'':`<div class="chips">${x.time?`<button class="chip" data-a="shift" data-id="${x.id}" data-n="-15">−15 мин</button><button class="chip" data-a="shift" data-id="${x.id}" data-n="15">+15 мин</button>`:''}${x.note?`<button class="chip l" data-a="how" data-id="${x.id}">как?</button>`:''}${x.open?`<button class="chip l" data-a="go" data-v="lang">открыть</button>`:''}${['dinner','sport','goal'].includes(x.auto)?`<button class="chip l" data-a="swap" data-id="${x.id}">⇄ заменить</button>`:''}${x.auto?`<button class="chip" data-a="skip" data-id="${x.id}">не сегодня</button>`:''}<button class="chip" data-a="nowTask" data-id="${x.id}">▶ начать сейчас</button><button class="chip" data-a="tomorrow" data-id="${x.id}">→ завтра</button></div>`}</div>${dot(x.area)}</div>`}
+function taskBox(x){return `<div class="task ${x.done?'done':''}" style="border-left-color:${area(x.area)?.color||'#8db76a'}">${ck('task',x.id,x.done)}<div class="t"><button class="tt" data-a="taskEd" data-id="${x.id}">${x.rep?'↻ ':''}${esc(x.text)}</button><div class="mut">${x.time?x.time+'–'+clock(Math.min(1439,mins(x.time)+x.dur))+' · ':''}${hm(x.dur)}</div>${x.done?'':`<div class="chips">${x.time?`<button class="chip" data-a="shift" data-id="${x.id}" data-n="-15">−15 мин</button><button class="chip" data-a="shift" data-id="${x.id}" data-n="15">+15 мин</button>`:''}${x.note?`<button class="chip l" data-a="how" data-id="${x.id}">как?</button>`:''}${x.open?`<button class="chip l" data-a="go" data-v="${x.open}" ${x.open==='heart'?'data-hv="body"':''}>открыть</button>`:''}${['dinner','sport','goal'].includes(x.auto)?`<button class="chip l" data-a="swap" data-id="${x.id}">⇄ заменить</button>`:''}${x.auto?`<button class="chip" data-a="skip" data-id="${x.id}">не сегодня</button>`:''}<button class="chip" data-a="nowTask" data-id="${x.id}">▶ начать сейчас</button><button class="chip" data-a="tomorrow" data-id="${x.id}">→ завтра</button></div>`}</div>${dot(x.area)}</div>`}
 function planCard(today_,late){const t=today(),dd=add(t,U.pd),ts=U.pd?tasksOf(dd):today_,dn=ts.filter(x=>x.done).length,timed=ts.filter(x=>x.time),free=ts.filter(x=>!x.time);let h='';
 const parts=[['Утро',0,720],['День',720,1080],['Вечер',1080,1440]];
 if(U.plan==='time'){let prev=null;for(const[n,a,b]of parts){const p=timed.filter(x=>mins(x.time)>=a&&mins(x.time)<b);if(!p.length)continue;let first=true;for(const x of p){const m=mins(x.time);if(prev!=null&&m-prev>=15)h+=`<div class="free">свободно ${hm(m-prev)}</div>`;if(first)h+=`<div class="lab">${n}</div>`;first=false;h+=`<div class="slot"><span>${x.time}</span>${taskBox(x)}</div>`;prev=Math.max(prev??0,m+x.dur)}}if(free.length)h+='<div class="lab">Без времени</div>'+free.map(x=>`<div style="margin-bottom:10px">${taskBox(x)}</div>`).join('')}
@@ -451,14 +469,6 @@ const bankItem=x=>`<section class="card bk"><div class="hd"><span style="font-si
 function bank(){const k=U.bank,tags=bankTags();if(U.tag&&!tags.includes(U.tag))U.tag='';const L=S.bank.filter(x=>(k==='all'||(k==='fav'?x.fav:x.kind===k))&&(!U.tag||x.tag===U.tag)).sort((x,y)=>(y.fav?1:0)-(x.fav?1:0));const n=q=>S.bank.filter(x=>x.kind===q).length;
 return hero('Копилка','Рецепты, лайфхаки и идеи в одном месте.',[[n('recipe'),'рецептов'],[n('hack'),'лайфхаков'],[n('idea'),'идей'],[S.bank.filter(x=>x.done).length,'попробовано']])+`<div class="hd">${seg('bank',[['all','Всё'],['recipe','Рецепты'],['hack','Лайфхаки'],['idea','Идеи'],['fav','★ Избранное']])}<span class="sp"></span><button class="btn s m" data-a="bankRnd">🎲 Что приготовить?</button>${addB('bankAdd','Добавить')}</div>${tags.length?`<div class="chips" style="margin-bottom:16px"><button class="chip ${U.tag?'':'on'}" data-a="bankTag" data-v="">все метки</button>${tags.map(t=>`<button class="chip ${U.tag===t?'on':''}" data-a="bankTag" data-v="${esc(t)}">#${esc(t)}</button>`).join('')}</div>`:''}<div class="grid g3">${L.map(bankItem).join('')||'<section class="card wide"><p class="empty">Здесь пока пусто. Нажми «+ Добавить».</p></section>'}</div>`}
 function bankCard(){if(!S.bank.length)return `<section class="card">${hd('bulb','Из копилки')}<p class="empty">Добавь первый рецепт или лайфхак в «Копилке».</p></section>`;const x=S.bank[(Math.floor(D(today())/864e5)+U.bday)%S.bank.length];return `<section class="card">${hd('bulb','Из копилки',`<span class="chip l">${KIND[x.kind][0]}</span>`)}<div class="row"><span style="font-size:40px">${esc(x.e||KIND[x.kind][2])}</span><button class="t" data-a="bankOpen" data-id="${x.id}">${esc(x.title)}<small>${esc(x.text.slice(0,90))}${x.text.length>90?'…':''}</small></button></div><div class="chips"><button class="btn s m" data-a="step" data-k="bday" data-n="1">⇄ Другое</button><button class="btn s m" data-a="bankOpen" data-id="${x.id}">Открыть</button></div></section>`}
-function cyc(){const ap=cycleApp(),c=ap?{starts:ap.starts,len:+ap.set.cycleLen||S.cycle.len}:S.cycle,s=c.starts.filter(x=>x<=today()),g=s.slice(1).map((x,i)=>diff(s[i],x)).filter(x=>x>14&&x<61).slice(-6);return{s,len:g.length?Math.round(g.reduce((a,b)=>a+b,0)/g.length):c.len}}
-function phase(d){const{s,len}=cyc();let st=null;for(const x of s)if(x<=d)st=x;if(!st)return null;let n=diff(st,d)+1,late=0;const last=st===s[s.length-1];if(n>len){if(last&&d<=today())late=n-len;else if(last)n=(n-1)%len+1}const ov=len-14;return{n,late,len,i:n<=S.cycle.per?0:n<ov-1?1:n<=ov+1?2:3}}
-function heart(){const t=today(),d=day(t),m=monday(t),wd=S.workouts.filter(w=>w.log[add(m,w.dow)]).length,ph=phase(t),b=mBase(U.cm),md=U.mday||t;let c='';
-if(U.health==='sport')c=`<section class="card">${hd('heart','Тренировки на неделю',addB('workEd','Тренировка'))}${WD.map((w,i)=>{const dd=add(m,i),l=S.workouts.filter(x=>x.dow===i);return l.length?l.map(x=>`<div class="row ${x.log[dd]?'done':''}">${ck('work',x.id,x.log[dd],`data-d="${dd}"`)}<div class="t">${esc(x.name)}<small>${w}, ${fmt(dd)}</small></div>${ed('workEd',x.id)}</div>`).join(''):`<div class="row"><span class="t mut">${w} · отдых</span></div>`}).join('')}</section>`;
-else if(U.health==='food')c=`<div class="grid"><section class="card">${hd('heart','Питание',addB('mealEd','Запись',`data-d="${md}"`))}<input class="inp" type="date" data-c="mday" aria-label="Дата" value="${md}">${S.meals.filter(x=>x.date===md).map(x=>`<div class="row"><div class="t">${esc(x.text)}<small>${esc(x.type)}</small></div>${ed('mealEd',x.id)}</div>`).join('')||'<p class="empty">Записей нет.</p>'}</section><section class="card">${hd('heart','Вода сегодня','','b')}<div class="big">${d.water||0} из 8 стаканов</div><div style="font-size:27px;margin:14px 0;letter-spacing:3px">${'💧'.repeat(Math.min(d.water||0,12))}<span style="opacity:.2">${'💧'.repeat(Math.max(0,8-(d.water||0)))}</span></div><div class="chips"><button class="btn" data-a="water" data-n="1">+ Стакан</button><button class="btn s" data-a="water" data-n="-1">− Убрать</button></div></section></div>`;
-else if(/^https?:$/.test(location.protocol))c=`<section class="card cyf"><iframe src="../" title="Цикл" allow="clipboard-read; clipboard-write"></iframe></section>`;else c=`<div class="grid"><section class="card">${hd('own','Цикл',addB('cycAdd','Начало'),'l')}${ph?`<div class="big">${ph.late?'Задержка '+pl(ph.late,'день','дня','дней'):PH[ph.i].e+' '+PH[ph.i].n}</div><p class="mut">${ph.n}-й день цикла · средняя длина ${ph.len} дн.${ph.late?'':' · до следующего примерно '+(ph.len-ph.n+1)+' дн.'}</p>${ph.late?'':`<div class="note"><b>Что есть:</b> ${PH[ph.i].eat}</div><div class="note" style="background:var(--lilS)"><b>Как тренироваться:</b> ${PH[ph.i].go}</div>`}`:'<p class="empty">Отметь первый день месячных, и я посчитаю фазу.</p>'}<div class="lab">Симптомы сегодня</div><div class="chips">${SYM.map(x=>`<button class="chip o ${(d.sym||[]).includes(x)?'on':''}" aria-pressed="${(d.sym||[]).includes(x)}" data-a="sym" data-v="${x}">${x}</button>`).join('')}</div><p class="mut" style="margin-top:14px">Расчёт примерный: это не медицинская консультация и не способ контрацепции.</p></section><section class="card"><div class="hd">${arrows('cm',MN[b.getMonth()])}<span class="sp"></span><button class="btn s m" data-a="cycSet">Настроить</button></div><div class="cal cyc">${calGrid(b,(dd,i)=>{const p=phase(dd);return `<div class="d ${p&&!p.late?'ph'+p.i:''} ${dd===t?'now':''}"><button data-a="cycDay" data-d="${dd}" ${dd>t?'disabled':''} aria-label="${fmt(dd)}">${i}</button></div>`})}</div><div class="chips" style="margin-top:14px">${PH.map((p,i)=>`<span class="mut"><i class="dot" style="background:${['#f2b8bd','#e8f3d8','#dcb5e2','#f4ecd9'][i]}"></i> ${p.n}</span>`).join('')}</div><div class="lab">Отмеченные начала</div><div class="chips">${S.cycle.starts.slice().reverse().slice(0,8).map(x=>`<button class="chip o" data-a="cycEd" data-d="${x}">${fmt(x)} ✎</button>`).join('')}</div>${cycleApp()?'<button class="btn s m" style="margin-top:14px" data-a="cycImp">Взять данные из приложения «Цикл»</button>':''}</section></div>`;
-return hero('Здоровье','Движение, еда, вода и самочувствие.',[[wd+'/'+S.workouts.length,'тренировок'],[(d.water||0)+'/8','воды'],[ph?ph.n:'–','день цикла']])+`<div class="hd">${seg('health',[['sport','Тренировки'],['food','Питание и вода'],['cycle','Цикл']])}</div>`+c}
-function cycleApp(){try{const x=JSON.parse(localStorage.getItem('cycle.v1'));if(!x?.days)return null;const ds=Object.keys(x.days).filter(d=>/^\d{4}-\d\d-\d\d$/.test(d)&&x.days[d]?.period&&x.days[d].period!=='spotting').sort(),o=[];let p=null;ds.forEach(d=>{if(!p||diff(p,d)>3)o.push(d);p=d});return o.length?{starts:o,set:x.settings||{}}:null}catch(e){return null}}
 function own(){const o=get('own',U.own)||S.own[0];if(o)U.own=o.id;const all=S.own.flatMap(x=>x.items);return hero(o?o.icon+' '+o.name:'Моё','Свой раздел под любое увлечение.',[[S.own.length,'разделов'],[all.filter(x=>x.st==='work').length,'в процессе'],[all.filter(x=>x.st==='ok').length,'готово']])+`<div class="hd"><div class="chips">${S.own.map(x=>`<button class="chip ${x.id===U.own?'on':''}" data-a="ownGo" data-id="${x.id}">${esc(x.icon)} ${esc(x.name)}</button>`).join('')}</div><span class="sp"></span>${o?ed('ownEd',o.id):''}${addB('ownEd','Раздел')}</div>${o?`<div class="grid g3">${[['want','Хочу'],['work','В процессе'],['ok','Готово']].map(([k,n])=>`<section class="card"><div class="hd"><h3>${n}</h3><span class="sp"></span><button class="mini" data-a="itemEd" data-st="${k}" aria-label="Добавить: ${n}">+</button></div>${o.items.filter(x=>x.st===k).map(x=>`<div class="row"><div class="t">${esc(x.title)}<small>${esc(x.note)}</small></div>${k==='ok'?'':`<button class="mini" data-a="itemNext" data-id="${x.id}" aria-label="Дальше" title="Дальше">→</button>`}${ed('itemEd',x.id)}</div>`).join('')||'<p class="empty">Пусто.</p>'}</section>`).join('')}</div>`:'<section class="card"><p class="empty">Создай свой раздел.</p></section>'}`}
 function giftCard(r){const s=savedR(r.id),rem=r2(Math.max(0,r.cost-s)),b=balance(),n=Math.ceil(r2(rem/S.rate)),pc=pace(),need=Math.max(0,n-Math.max(0,b)),link=/^https?:\/\//i.test(r.link);return `<section class="card rw"><button class="ph" data-a="rewEd" data-id="${r.id}" aria-label="Изменить: ${esc(r.name)}">${r.img?`<img src="${r.img}" alt="">`:`<span>${esc(r.e||'🎁')}</span><small>+ фото</small>`}</button><h3>${esc(r.name)}</h3><div class="pr"><b>${cash(r.cost)}</b>${link?`<a href="${esc(r.link)}" target="_blank" rel="noopener noreferrer">магазин ↗</a>`:''}</div><div class="pb"><i style="width:${Math.min(100,s/r.cost*100)}%"></i></div><p class="mut">${rem?`🐷 отложено ${cash(s)}, ещё ${cash(rem)}<br>это ${pl(n,'дело','дела','дел')}${need?pc?`, примерно ${pl(Math.ceil(need/pc),'день','дня','дней')}`:'':' – баллов уже хватает'}`:'🎉 Накоплено, можно покупать!'}</p>${rem?`<div class="chips"><button class="chip o" data-a="put" data-id="${r.id}" data-n="10">+10 б.</button><button class="chip o" data-a="put" data-id="${r.id}" data-n="50">+50 б.</button><button class="chip o" data-a="put" data-id="${r.id}" data-n="all">все баллы</button>${s?`<button class="chip o" data-a="unput" data-id="${r.id}" aria-label="Отменить последнее" title="Отменить последнее">↩</button>`:''}</div><div class="chips act"><button class="btn s m" data-a="cashIn" data-id="${r.id}">+ деньги</button><button class="btn m ${r.goal?'':'s'}" data-a="goalR" data-id="${r.id}" aria-pressed="${!!r.goal}">🐷 ${r.goal?'копим':'копить'}</button></div>`:`<div class="chips act"><button class="btn m" data-a="buy" data-id="${r.id}">Куплено!</button><button class="chip o" data-a="unput" data-id="${r.id}" title="Отменить последнее">↩</button></div>`}</section>`}
 function gift(){const b=balance(),tot=r2(S.rewards.reduce((s,r)=>s+savedR(r.id),0)),L=(q)=>S.rewards.filter(r=>!!r.again===q).sort((x,y)=>(y.goal?1:0)-(x.goal?1:0));
@@ -468,6 +478,280 @@ function syncChip(){const s=Sync.state;return !Sync.signed?'<button class="chip 
 function cloudBox(){const s=Sync.state;if(!Sync.signed)return `<form id="lf"><p class="mut" style="margin-bottom:12px">${esc(Sync.error||'Почта и пароль, которые ты создала в Supabase для входа.')}</p><label>Почта<input class="inp" name="email" type="email" autocomplete="username" required></label><label>Пароль<input class="inp" name="pw" type="password" autocomplete="current-password" required></label><p class="ge" role="alert"></p><div class="btns"><button class="btn">Войти</button><button type="button" class="btn s" data-a="shut">Отмена</button></div></form>`;
 if(s==='choose')return `<p>В облаке уже есть записи, и на этом устройстве тоже. Какие оставить?</p><div class="btns"><button class="btn" data-a="cloudPick" data-v="cloud">Взять из облака</button><button class="btn s" data-a="cloudPick" data-v="merge">Объединить</button><button class="btn s" data-a="cloudPick" data-v="mine">Оставить с этого устройства</button></div><p class="mut" style="margin-top:14px">Если здесь только примеры, выбирай «Взять из облака». Прежние записи этого устройства сохранятся рядом в браузере.</p>`;
 return `<p><b>${s==='ok'?'✓ Всё сохранено в облаке':s==='err'?esc(Sync.error):'Синхронизирую…'}</b></p><p class="mut">${esc(Sync.email)}</p><div class="btns"><button class="btn s" data-a="cloudNow">Обновить сейчас</button><button class="btn s" data-a="cloudOut">Выйти</button><button class="btn" data-a="shut">Закрыть</button></div>`}
+
+'use strict';
+/* Импорт из Apple Здоровья через «Команды».
+   Команда кладёт в буфер строки вида  КОД|начало|конец|значение
+   КОДЫ: SLEEP STEPS KCAL WEIGHT WTEMP BTEMP WORK
+   Подключается до app.js; функции app.js (iso, add, S, …) вызываются только во время работы. */
+
+const H_CODES = ['SLEEP', 'STEPS', 'KCAL', 'WEIGHT', 'WTEMP', 'BTEMP', 'WORK', 'EAT', 'PROT', 'FAT', 'CARB', 'WATER'];
+const H_NAMES = { SLEEP: 'сон', STEPS: 'шаги', KCAL: 'активность', WEIGHT: 'вес', WTEMP: 't° запястья', BTEMP: 'базальная t°', WORK: 'тренировки', EAT: 'съедено', PROT: 'белки', FAT: 'жиры', CARB: 'углеводы', WATER: 'вода' };
+// поле дня в S.health для каждого кода; суммы за день – SUM
+const H_FIELD = { SLEEP: 'sleep', STEPS: 'steps', KCAL: 'kcal', WEIGHT: 'weight', WTEMP: 'wtemp', BTEMP: 'btemp', WORK: 'work', EAT: 'eat', PROT: 'prot', FAT: 'fat', CARB: 'carb', WATER: 'water' };
+const H_SUM = ['STEPS', 'KCAL', 'EAT', 'PROT', 'FAT', 'CARB', 'WATER'];
+const RU_MON = ['янв', 'фев', 'мар', 'апр', 'ма', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+
+function hNum(s) {
+  s = String(s ?? '').replace(/(\d)[\s   ](?=\d)/g, '$1');
+  const m = s.match(/-?\d+(?:[.,]\d+)?/);
+  return m ? parseFloat(m[0].replace(',', '.')) : null;
+}
+
+function hWhen(s) {
+  s = String(s ?? '').trim();
+  if (!s) return null;
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return new Date(+m[1], m[2] - 1, +m[3]);
+  // ISO с временем: берём «настенное» время телефона как есть, смещение пояса игнорируем
+  m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  if (m) return new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0));
+  m = s.match(/(\d{1,2})\.(\d{1,2})\.(\d{2,4})(?:\D+(\d{1,2}):(\d{2}))?/);
+  if (m) { let y = +m[3]; if (y < 100) y += 2000; return new Date(y, m[2] - 1, +m[1], +(m[4] || 0), +(m[5] || 0)); }
+  m = s.toLowerCase().match(/(\d{1,2})\s+([а-яё]+)\.?\s+(\d{4})(?:\D+?(\d{1,2}):(\d{2}))?/);
+  if (m) {
+    const mi = RU_MON.findIndex(p => m[2].startsWith(p));
+    if (mi >= 0) return new Date(+m[3], mi, +m[1], +(m[4] || 0), +(m[5] || 0));
+  }
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
+
+function hAsleep(val) {
+  const v = String(val || '').toLowerCase().trim();
+  if (/^\d+$/.test(v)) return ![0, 2].includes(+v);           // 0 — в кровати, 2 — бодрствование
+  return !/кроват|in ?bed|бодрств|awake|проснул/.test(v);
+}
+
+function parseHealth(text) {
+  const rows = [], bad = [];
+  const blocks = {};          // формат без цикла: =КОД:start / =КОД:end / =КОД:value, дальше списки по строке
+  let cur = null;
+  for (const raw of String(text || '').split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || /^CYCLE-HEALTH/i.test(line)) continue;
+    const mk = line.match(/^=\s*([A-Za-z]+)\s*:\s*(start|end|value)\s*$/i);
+    if (mk) {
+      const code = mk[1].toUpperCase();
+      if (!H_CODES.includes(code)) { bad.push(line); cur = null; continue; }
+      cur = ((blocks[code] ||= {})[mk[2].toLowerCase()] = []);
+      continue;
+    }
+    if (cur && !line.includes('|')) { cur.push(line); continue; }
+    cur = null;
+    const p = line.split('|').map(x => x.trim());
+    const code = (p[0] || '').toUpperCase();
+    const st = hWhen(p[1]);
+    if (!H_CODES.includes(code) || !st) { bad.push(line); continue; }
+    rows.push({ code, st, en: hWhen(p[2]) || st, val: p.slice(3).join('|') });
+  }
+  for (const [code, b] of Object.entries(blocks)) {
+    const st = b.start || [], en = b.end || [], val = b.value || [];
+    if (val.length && val.length !== st.length) bad.push(`${code}: дат ${st.length}, значений ${val.length} — списки не совпадают`);
+    for (let i = 0; i < st.length; i++) {
+      const s0 = hWhen(st[i]);
+      if (!s0) { bad.push(`${code}: ${st[i]}`); continue; }
+      rows.push({ code, st: s0, en: hWhen(en[i]) || s0, val: val[i] ?? '' });
+    }
+  }
+  return { rows, bad };
+}
+
+function aggregateHealth(rows) {
+  const H = {}, cnt = {};
+  const g = d => (H[d] ||= {});
+  const latest = {};                       // для веса/температуры — последнее значение за день
+  const sleeps = [];
+  for (const r of rows) {
+    const v = hNum(r.val);
+    cnt[r.code] = (cnt[r.code] || 0) + 1;
+    if (H_SUM.includes(r.code)) {
+      if (v == null) continue;
+      const k = H_FIELD[r.code], d = iso(r.st);
+      g(d)[k] = (g(d)[k] || 0) + (r.code === 'WATER' && v < 10 ? v * 1000 : v);   // вода: литры → мл
+    } else if (r.code === 'WEIGHT' || r.code === 'BTEMP' || r.code === 'WTEMP') {
+      if (v == null) continue;
+      const k = { WEIGHT: 'weight', BTEMP: 'btemp', WTEMP: 'wtemp' }[r.code];
+      const d = iso(r.code === 'WTEMP' ? r.en : r.st), key = k + d;
+      if (!latest[key] || latest[key] < r.st) { latest[key] = r.st; g(d)[k] = v; }
+    } else if (r.code === 'SLEEP') {
+      if (hAsleep(r.val) && r.en > r.st) sleeps.push([+r.st, +r.en]);
+    } else if (r.code === 'WORK') {
+      const d = iso(r.st), min = Math.round((r.en - r.st) / 6e4);
+      const name = r.val && hNum(r.val) === null ? r.val : 'Тренировка';
+      (g(d).work ||= []).push({ n: name.slice(0, 40), min: min > 0 ? min : (hNum(r.val) || 0) });
+    }
+  }
+  // сон: объединяем пересечения (часы + телефон) и относим к дате пробуждения
+  sleeps.sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const s of sleeps) {
+    const l = merged[merged.length - 1];
+    if (l && s[0] <= l[1]) l[1] = Math.max(l[1], s[1]); else merged.push([...s]);
+  }
+  for (const [a, b] of merged) { const d = iso(new Date(b)); g(d).sleep = (g(d).sleep || 0) + Math.round((b - a) / 6e4); }
+
+  for (const d of Object.keys(H)) {
+    const h = H[d];
+    if (h.steps != null) h.steps = Math.round(h.steps);
+    for (const k of ['kcal', 'eat', 'prot', 'fat', 'carb', 'water']) if (h[k] != null) h[k] = Math.round(h[k]);
+    if (h.weight != null) h.weight = Math.round(h.weight * 10) / 10;
+    if (h.wtemp != null) h.wtemp = Math.round(h.wtemp * 100) / 100;
+    if (h.btemp != null) h.btemp = Math.round(h.btemp * 100) / 100;
+  }
+  return { H, cnt, nights: merged.length };
+}
+
+
+/* ===== Здоровье и Цикл =====
+   Цикл и данные из Apple Здоровья лежат в документе «Цикла» (localStorage cycle.v1, в базе – ключ cycle).
+   Кабинет читает и пишет туда же, поэтому приложение «Цикл» и кабинет всегда видят одно и то же. */
+const CK='cycle.v1',CDEF={cycleLen:28,periodLen:5,luteal:14,auto:true,pin:null,shortcutName:'Цикл Здоровье'};
+const FLOW=[['light','Скудные'],['medium','Умеренные'],['heavy','Обильные'],['spotting','Мажущие']];
+const CSYM=['Всё хорошо','Спазмы','Головная боль','Боль в груди','Вздутие','Боль в спине','Акне','Усталость','Тошнота','Бессонница','Тяга к сладкому','Головокружение','Диарея','Запор','Отёки'];
+const CMOOD=['Спокойствие','Радость','Энергия','Игривость','Перепады','Раздражение','Грусть','Тревога','Апатия','Чувствительность','Злость','Плаксивость'];
+const CDIS=['Нет','Липкие','Кремообразные','Как яичный белок','Водянистые','Необычные'],CSEX=['Не было','С защитой','Без защиты'];
+const WDN=['в понедельник','во вторник','в среду','в четверг','в пятницу','в субботу','в воскресенье'];
+const BODY=[['chest','Грудь'],['waist','Талия'],['belly','Живот'],['hips','Бёдра'],['thigh','Бедро'],['arm','Рука']];
+const dec=(n,k=1)=>(Math.round(n*10**k)/10**k).toFixed(k).replace('.',','),nn=n=>Math.round(n).toLocaleString('ru-RU');
+const fmtS=s=>D(s).toLocaleDateString('ru-RU',{day:'numeric',month:'short'}).replace('.','');
+
+let _cr,_cc=null;
+function C(){let raw=null;try{raw=localStorage.getItem(CK)}catch(e){}
+if(raw!==_cr){_cr=raw;_cc=null;try{const x=JSON.parse(raw);if(x&&x.days&&typeof x.days=='object'&&!Array.isArray(x.days))_cc={...x,settings:{...CDEF,...(x.settings||{})},health:x.health&&typeof x.health=='object'?x.health:{},healthAt:x.healthAt||null}}catch(e){}}return _cc}
+function Cw(fn){const c=C(),n=c?JSON.parse(JSON.stringify(c)):{settings:{...CDEF},days:{},health:{},healthAt:null};fn(n);
+try{localStorage.setItem(CK,JSON.stringify(n))}catch(e){toast('Не удалось сохранить')}if(typeof Sync!=='undefined')Sync.touch('cycle')}
+// как setDay в «Цикле»: пустые поля убираем, пустой день удаляем
+function cSet(d,patch){Cw(c=>{const r={...(c.days[d]||{}),...patch};for(const k of Object.keys(r)){const v=r[k];if(v===undefined||v===null||v===''||v===false||(Array.isArray(v)&&!v.length))delete r[k]}if(Object.keys(r).length)c.days[d]=r;else delete c.days[d]})}
+const isPer=r=>!!(r&&r.period&&r.period!=='spotting');
+
+/* модель цикла – та же, что в приложении «Цикл» */
+let _ck='',_cm=null;
+function cmodel(){const c=C();if(!c)return null;const T=today(),key=_cr+T;if(key===_ck)return _cm;
+const st=c.settings,pdays=Object.keys(c.days).filter(d=>/^\d{4}-\d\d-\d\d$/.test(d)&&isPer(c.days[d])).sort(),groups=[];
+for(const d of pdays){const g=groups[groups.length-1];if(g&&diff(g.end,d)<=2)g.end=d;else groups.push({start:d,end:d})}
+const cycles=groups.map((g,i)=>{const n=groups[i+1];return{start:g.start,end:g.end,plen:diff(g.start,g.end)+1,len:n?diff(g.start,n.start):null}});
+const avg=a=>a.reduce((x,y)=>x+y,0)/a.length,vl=cycles.filter(x=>x.len&&x.len>=15&&x.len<=60).slice(-6).map(x=>x.len),vp=cycles.filter(x=>x.plen>=2&&x.plen<=12).slice(-6).map(x=>x.plen);
+let L=+st.cycleLen||28,P=+st.periodLen||5;if(st.auto){if(vl.length)L=Math.round(avg(vl));if(vp.length)P=Math.round(avg(vp))}
+const Lu=Math.min(+st.luteal||14,L-P-2),last=groups.filter(g=>g.start<=T).pop()||groups[groups.length-1]||null,lastAny=groups[groups.length-1]||null,preds=[];
+if(lastAny)for(let k=1;preds.length<12&&k<60;k++){const s=add(lastAny.start,k*L),e=add(s,P-1);if(e<T)continue;preds.push({start:s,end:e})}
+const type={},starts=groups.map(g=>g.start),ovus=[];if(lastAny)for(let k=1;k<=13;k++)starts.push(add(lastAny.start,k*L));
+for(let i=0;i+1<starts.length;i++){const gap=diff(starts[i],starts[i+1]);if(gap<15||gap>60)continue;const ov=add(starts[i+1],-Lu);ovus.push(ov);for(let j=-5;j<=1;j++)type[add(ov,j)]='fert'}
+for(const ov of ovus)type[ov]='ovu';for(const p of preds)for(let d=p.start;d<=p.end;d=add(d,1))type[d]='pred';for(const d of pdays)type[d]='period';
+_cm={T,groups,cycles,L,P,Lu,last,preds,type,ovus};_ck=key;return _cm}
+function cstatus(m){const{T,L,Lu,last,type}=m;if(!last)return null;const c=C(),dn=diff(last.start,T)+1,next=add(last.start,L),ov=add(next,-Lu),inP=T>=last.start&&T<=last.end&&isPer(c.days[T]),dOv=diff(T,ov);
+const r={day:dn,next,ov,inP,ch:type[T]==='fert'||type[T]==='ovu'?(dOv>=0&&dOv<=2?'высокий':'средний'):'низкий',t3:dn+'-й день цикла'};
+if(inP){r.t1='Месячные';r.t2=(diff(last.start,T)+1)+'-й день';r.ch='низкий'}
+else if(T>=next){const late=diff(next,T);if(!late){r.t1='Месячные ожидаются';r.t2='Сегодня'}else{r.t1='Задержка';r.t2=pl(late,'день','дня','дней')}r.ch='низкий'}
+else{const n=diff(T,next);r.t1='До месячных';r.t2=n===1?'Завтра':pl(n,'день','дня','дней');if(T===ov)r.t3='Сегодня день овуляции';else if(dOv>0&&dOv<=14)r.t3='Овуляция через '+pl(dOv,'день','дня','дней')}
+return r}
+/* фаза для плана дня и подсказок: {n – день цикла, late – дней задержки, len, i: 0 месячные, 1 фолликулярная, 2 овуляция, 3 лютеиновая} */
+function phase(d){const m=cmodel();if(!m||!m.groups.length)return null;let gi=-1;m.groups.forEach((x,j)=>{if(x.start<=d)gi=j});if(gi<0)return null;
+const g=m.groups[gi],nx=m.groups[gi+1];let st=g.start,len=nx?diff(g.start,nx.start):m.L,n=diff(st,d)+1,late=0;
+if(!nx&&n>m.L){if(d<=m.T)late=n-m.L;else{const k=Math.floor((n-1)/m.L);st=add(g.start,k*m.L);n=(n-1)%m.L+1}}
+const t=m.type[d],i=d<=g.end||t==='pred'?0:t==='fert'||t==='ovu'?2:d<add(st,len-m.Lu)?1:3;return{n,late,len,i}}
+
+/* ---------- данные из Здоровья ---------- */
+const HD=()=>C()?.health||{};
+function hLast(k,from,n=60){const H=HD(),c=C();for(let i=0;i<n;i++){const d=add(from,-i);let v=H[d]?.[k];if(v==null&&k==='weight'){const w=parseFloat(String(c?.days?.[d]?.weight||'').replace(',','.'));if(w>20)v=w}if(v!=null)return[d,v]}return null}
+function weightSeries(n){const o=[];for(let i=n-1;i>=0;i--){const d=add(today(),-i),w=hLast('weight',d,1);if(w)o.push([n-1-i,w[1],d])}return o}
+const hWork=d=>(HD()[d]?.work||[]);
+const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function hAtText(){const a=C()?.healthAt;if(!a)return 'ещё не загружались';const d=new Date(a);return 'обновлено '+(iso(d)===today()?'сегодня в '+d.toTimeString().slice(0,5):fmt(iso(d)))}
+function lineChart(pts,N,unit){if(pts.length<2)return '<p class="mut" style="margin-top:12px">Нужно хотя бы два взвешивания, чтобы показать график.</p>';
+const vs=pts.map(p=>p[1]),lo=Math.min(...vs)-.3,hi=Math.max(...vs)+.3,W=340,H=110,X=i=>8+i*(W-16)/(N-1),Y=v=>10+(hi-v)/(hi-lo)*(H-30);
+return `<svg class="hch" viewBox="0 0 ${W} ${H}" role="img" aria-label="График за ${N} дней"><polyline points="${pts.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')}" fill="none" stroke="#1F3A12" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${pts.map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="2.6" fill="#C98FD3"/>`).join('')}<text x="0" y="${H-2}">${fmtS(add(today(),-(N-1)))}</text><text x="${W}" y="${H-2}" text-anchor="end">сегодня</text><text x="${W}" y="10" text-anchor="end">${dec(Math.max(...vs))} ${unit}</text></svg>`}
+function bars(vals,lab,fmtv,goal){const mx=Math.max(goal||0,...vals.map(v=>v[1]||0))||1;
+return `<div class="hb">${vals.map(([d,v])=>`<div><i style="height:${v?Math.max(4,Math.round(v/mx*100)):0}%" class="${goal&&v>=goal?'ok':''}"></i><b>${v?fmtv(v):'–'}</b><span>${lab(d)}</span></div>`).join('')}</div>`}
+
+function bodyPage(){const t=today(),H=HD();if(U.hd>0)U.hd=0;const sd=add(t,U.hd||0),h=H[sd]||{};
+const w=hLast('weight',t),w7=hLast('weight',add(t,-7),14),w30=hLast('weight',add(t,-30),20),ser=weightSeries(90);
+const chg=(a)=>{if(!w||!a)return '';const x=w[1]-a[1];return `${x>0?'+':x<0?'−':''}${dec(Math.abs(x))} кг`};
+const src=`<section class="card wide">${hd('heart','Данные из Здоровья',`${isIOS()?'<button class="btn m" data-a="hRun">↻ Обновить</button>':''}<button class="btn s m" data-a="hPaste">Вставить</button><button class="btn s m" data-a="hHelp">Как настроить</button>`)}<p class="mut">${esc(hAtText())}. Вес, калории и КБЖУ из Yazio, тренировки, сон и шаги приходят из Apple Здоровья. Замеры тела – раз в неделю вручную.</p></section>`;
+const wCard=`<section class="card">${hd('heart','Вес','','l')}${w?`<div class="big">${dec(w[1])} кг</div><p class="mut">${w[0]===t?'сегодня':'на '+fmt(w[0])}${w7&&w7[0]!==w[0]?' · за неделю '+chg(w7):''}${w30&&w30[0]!==w[0]?' · за месяц '+chg(w30):''}</p>${lineChart(ser,90,'кг')}`:'<p class="empty">Взвешиваний пока нет. Они придут из Здоровья, когда весы или Yazio запишут вес.</p>'}</section>`;
+const eat=h.eat,p=h.prot,f=h.fat,cb=h.carb,mk=(p||0)*4+(f||0)*9+(cb||0)*4;let e7=0,n7=0;for(let i=1;i<=7;i++){const x=H[add(sd,-i)]?.eat;if(x){e7+=x;n7++}}
+const mac=(n,v,k,col)=>`<div class="mac"><span>${n}</span><div><i style="width:${mk&&v?Math.round(v*k/mk*100):0}%;background:${col}"></i></div><b>${v!=null?nn(v)+' г':'–'}</b></div>`;
+const kCard=`<section class="card"><div class="hd"><span class="ic">${I('heart')}</span><h2>Калории</h2><span class="sp"></span>${arrows('hd',sd===t?'Сегодня':fmtS(sd))}</div>
+<div class="two2"><div><div class="lab" style="margin-top:0">Съедено</div><div class="big">${eat!=null?nn(eat):'–'}<small> ккал</small></div></div><div><div class="lab" style="margin-top:0">Активность</div><div class="big">${h.kcal!=null?nn(h.kcal):'–'}<small> ккал</small></div></div></div>
+${mac('Белки',p,4,'#8db76a')}${mac('Жиры',f,9,'#e0a83f')}${mac('Углеводы',cb,4,'#c98fd3')}
+<p class="mut" style="margin-top:12px">${eat==null&&!Object.values(H).some(x=>x.eat!=null)?'Питание из Yazio ещё не приходило: в команду нужно добавить блоки EAT, PROT, FAT, CARB (кнопка «Как настроить»).':n7?'В среднем за 7 дней до этого: '+nn(e7/n7)+' ккал в день':''}</p></section>`;
+const wk=[];for(let i=13;i>=0;i--){const d=add(t,-i);hWork(d).forEach(x=>wk.push([d,x]))}const wm=monday(t),wkw=wk.filter(([d])=>d>=wm);
+const trCard=`<section class="card">${hd('heart','Тренировки из Здоровья','','b')}<p class="mut" style="margin-bottom:6px">На этой неделе: ${pl(wkw.length,'тренировка','тренировки','тренировок')}, ${hm(wkw.reduce((a,[,x])=>a+(+x.min||0),0))}</p>${wk.length?wk.reverse().slice(0,8).map(([d,x])=>`<div class="row"><span class="dot" style="background:#8fb3a7"></span><div class="t">${esc(x.n)}<small>${esc(fmtL(d))}</small></div><b>${+x.min?hm(x.min):''}</b></div>`).join(''):'<p class="empty">За две недели тренировок в Здоровье нет.</p>'}</section>`;
+const d7=[];for(let i=6;i>=0;i--)d7.push(add(t,-i));const wl=d=>WD[dow(d)];
+const sCard=`<section class="card">${hd('heart','Сон и шаги','','l')}<div class="lab" style="margin-top:0">Сон, часов</div>${bars(d7.map(d=>[d,H[d]?.sleep?H[d].sleep/60:0]),wl,v=>dec(v),7)}<div class="lab">Шаги, тысяч</div>${bars(d7.map(d=>[d,H[d]?.steps||0]),wl,v=>dec(v/1000),8000)}</section>`;
+return `<div class="grid">${src}${wCard}${kCard}${trCard}${sCard}${paramsCard()}</div>`}
+
+function bodyNext(){const l=S.body.slice().sort((a,b)=>b.date.localeCompare(a.date))[0];return l?add(l.date,7):today()}
+function paramsCard(){const l=S.body.slice().sort((a,b)=>b.date.localeCompare(a.date)),t=today(),nx=bodyNext(),due=nx<=t,first=l[l.length-1];
+const cell=(x,k,prev)=>{const v=x[k];if(!v)return '<td>–</td>';const d=prev&&prev[k]?v-prev[k]:0;return `<td>${dec(v)}${d?`<small class="${d<0?'dn':'up'}">${d>0?'+':'−'}${dec(Math.abs(d))}</small>`:''}</td>`};
+return `<section class="card wide">${hd('own','Параметры тела',addB('bodyEd','Замеры'),'r')}<p class="mut">${l.length?(due?'<b class="due">Пора замерить: прошла неделя.</b> ':'Следующий замер – '+esc(fmtL(nx))+'. ')+'Сантиметр, утром до завтрака.':'Раз в неделю: грудь, талия, живот, бёдра, бедро и рука. Утром до завтрака, сантиметром по одним и тем же местам.'}${S.plan.body?' Напоминание само встанет в план дня: '+WDN[S.plan.bdow]+'.':''}</p>
+${l.length?`<div class="tw"><table class="btab"><thead><tr><th>Дата</th>${BODY.map(([,n])=>`<th>${n}</th>`).join('')}<th></th></tr></thead><tbody>${l.slice(0,8).map((x,i)=>`<tr><td>${esc(fmtS(x.date))}</td>${BODY.map(([k])=>cell(x,k,l[i+1])).join('')}<td>${ed('bodyEd',x.id)}</td></tr>`).join('')}</tbody></table></div>${l.length>1?`<p class="mut" style="margin-top:10px">С первого замера (${esc(fmt(first.date))}): ${BODY.filter(([k])=>l[0][k]&&first[k]).map(([k,n])=>{const d=l[0][k]-first[k];return n.toLowerCase()+' '+(d>0?'+':d<0?'−':'')+dec(Math.abs(d))}).join(', ')||'нечего сравнить'}</p>`:''}`:''}</section>`}
+function bodyForm(id){const x=id?S.body.find(b=>b.id===id):null,v=x||{date:today()};
+const o=modal(`<form><h3>Замеры, см</h3><label>Дата<input class="inp" name="date" type="date" required value="${esc(v.date)}"></label><div class="two2">${BODY.map(([k,n])=>`<label>${n}<input class="inp" name="${k}" inputmode="decimal" autocomplete="off" placeholder="–" value="${v[k]?dec(v[k]):''}"></label>`).join('')}</div><div class="btns"><button class="btn">Сохранить</button><button type="button" class="btn s" data-x>Отмена</button>${x?'<button type="button" class="btn red" data-del>Удалить</button>':''}</div></form>`),f=$('form',o);
+$('[data-x]',o).onclick=()=>closeModal();let sure=false;if(x)$('[data-del]',o).onclick=e=>{if(!sure){sure=true;e.target.textContent='Точно удалить?';return}S.body=S.body.filter(b=>b.id!==id);closeModal();save();render()};
+f.onsubmit=e=>{e.preventDefault();const r={date:f.elements.date.value};let any=false;for(const[k]of BODY){const s=f.elements[k].value.trim().replace(',','.');if(!s)continue;const n=parseFloat(s);if(!(n>5&&n<300))return toast('Похоже на опечатку: '+BODY.find(b=>b[0]===k)[1].toLowerCase());r[k]=Math.round(n*10)/10;any=true}
+if(!any)return toast('Впиши хотя бы один замер');if(x)Object.assign(x,BODY.reduce((o,[k])=>(o[k]=undefined,o),{}),r);else S.body.push({id:uid(),...r});S.body.forEach(b=>BODY.forEach(([k])=>{if(b[k]===undefined)delete b[k]}));
+S.tasks.filter(t=>t.auto==='body'&&t.date===today()&&!t.done).forEach(t=>t.done=true);closeModal();save();render();toast('Замеры сохранены')}}
+
+/* ---------- раздел «Цикл» ---------- */
+const CT={period:'Месячные',pred:'Прогноз месячных',fert:'Фертильные дни',ovu:'Овуляция'};
+function cyclePage(){const c=C(),m=cmodel(),t=today();
+if(!m||!m.groups.length)return `<section class="card">${hd('own','Цикл','','l')}<p>Отметь первый день последних месячных, и я посчитаю фазы, прогноз и фертильные дни. Эти же записи видны в приложении «Цикл» на всех устройствах.</p><div class="btns" style="margin-top:16px"><button class="btn" data-a="cStartAsk">Отметить начало месячных</button><button class="btn s" data-a="cSetup">Настроить</button></div></section>`;
+const s=cstatus(m),ph=phase(t),r=c.days[t]||{},b=mBase(U.cm),tags=[...(r.symptoms||[]),...(r.mood||[])];
+const left=`<section class="card">${hd('own','Сегодня',`<button class="btn s m" data-a="cDay" data-d="${t}">Отметить день</button>`,'l')}<div class="lab" style="margin-top:0">${esc(s.t1)}</div><div class="big">${esc(s.t2)}</div><p class="mut">${esc(s.t3)}${ph&&!ph.late?' · '+PH[ph.i].e+' '+PH[ph.i].n:''} · шанс беременности ${s.ch}</p>
+<div class="chips" style="margin-top:14px">${s.inP?'<button class="btn s m" data-a="cEnd">Месячные закончились</button>':'<button class="btn m" data-a="cStart">Месячные начались сегодня</button>'}</div>
+${tags.length?`<div class="lab">Отмечено сегодня</div><div class="chips">${tags.map(x=>`<span class="chip l">${esc(x)}</span>`).join('')}</div>`:''}
+${ph&&!ph.late?`<div class="note"><b>Что есть:</b> ${PH[ph.i].eat}</div><div class="note" style="background:var(--lilS)"><b>Как тренироваться:</b> ${PH[ph.i].go}</div>`:''}
+<p class="mut" style="margin-top:14px">Расчёт примерный: это не медицинская консультация и не способ контрацепции.</p></section>`;
+const right=`<section class="card"><div class="hd">${arrows('cm',MN[b.getMonth()]+' '+b.getFullYear())}<span class="sp"></span><button class="btn s m" data-a="cSetup">Настроить</button></div><div class="cal cyc">${calGrid(b,(dd,i)=>{const ty=m.type[dd]||'',lg=c.days[dd]&&Object.keys(c.days[dd]).some(k=>k!=='period');return `<div class="d ${ty?'t-'+ty:''} ${dd===t?'now':''}"><button data-a="cDay" data-d="${dd}" ${dd>t?'disabled':''} aria-label="${fmt(dd)}${ty?', '+CT[ty]:''}">${i}${lg?'<i></i>':''}</button></div>`})}</div>
+<div class="chips cleg" style="margin-top:14px"><span class="mut"><i class="dot" style="background:#f2b8bd"></i> месячные</span><span class="mut"><i class="dot pr"></i> прогноз</span><span class="mut"><i class="dot" style="background:#efdff3"></i> фертильные</span><span class="mut"><i class="dot" style="background:#c98fd3"></i> овуляция</span></div><p class="mut" style="margin-top:8px">Нажми на день, чтобы отметить месячные, самочувствие и настроение.</p></section>`;
+const cy=m.cycles.slice().reverse().slice(0,6),mx=Math.max(m.L,...cy.map(x=>x.len||diff(x.start,t)+1));
+const stats=`<section class="card wide">${hd('own','Статистика','','l')}<div class="kv"><div><b>${pl(m.L,'день','дня','дней')}</b><span>средний цикл</span></div><div><b>${pl(m.P,'день','дня','дней')}</b><span>месячные</span></div><div><b>${m.preds[0]?esc(fmt(m.preds[0].start)):'–'}</b><span>следующие месячные</span></div><div><b>${esc(fmt(s.ov>=t?s.ov:add(s.ov,m.L)))}</b><span>овуляция (расчёт)</span></div></div>
+<div class="lab">Последние циклы</div>${cy.map(x=>{const len=x.len||diff(x.start,t)+1;return `<div class="cyr"><span>${esc(fmtS(x.start))}</span><div><i class="p" style="width:${x.plen/mx*100}%"></i><i style="width:${(len-x.plen)/mx*100}%"></i></div><b>${x.len?pl(x.len,'день','дня','дней'):'идёт '+len+'-й'}</b></div>`}).join('')}</section>`;
+return `<div class="grid">${left}${right}${stats}</div>`}
+
+function cMark(from){const m=cmodel(),P=m?m.P:(+C()?.settings?.periodLen||5);Cw(c=>{for(let i=0;i<P;i++){const d=add(from,i),r=c.days[d]||{};if(!isPer(r))c.days[d]={...r,period:'medium'}}});toast('Отмечено '+pl(P,'день','дня','дней')+': поправь в календаре, если нужно');render()}
+function cDay(d){if(d>today())return;const o=modal(`<div class="cdm"></div>`),box=$('.cdm',o),cm0=closeModal;closeModal=()=>{cm0();render()};
+const chips=(f,list,multi,r)=>`<div class="chips">${list.map(([v,n])=>{const on=multi?(r[f]||[]).includes(v):r[f]===v;return `<button type="button" class="chip o ${on?'on':''}" aria-pressed="${on}" data-cf="${f}" data-v="${esc(v)}" ${multi?'data-m="1"':''}>${esc(n)}</button>`}).join('')}</div>`,pr=a=>a.map(x=>[x,x]);
+const draw=()=>{const c=C()||{days:{},health:{}},r=c.days[d]||{},h=c.health?.[d]||{},hr=[];
+if(h.sleep)hr.push(['Сон',hm(h.sleep)]);if(h.steps!=null)hr.push(['Шаги',nn(h.steps)]);if(h.weight!=null)hr.push(['Вес',dec(h.weight)+' кг']);if(h.eat!=null)hr.push(['Съедено',nn(h.eat)+' ккал']);if(h.wtemp!=null)hr.push(['t° запястья',dec(h.wtemp,2)+'°']);(h.work||[]).forEach(x=>hr.push([x.n,+x.min?hm(x.min):'']));
+box.innerHTML=`<h3>${esc(fmtL(d))}</h3><div class="lab">Месячные</div>${chips('period',FLOW,false,r)}<div class="lab">Самочувствие</div>${chips('symptoms',pr(CSYM),true,r)}<div class="lab">Настроение</div>${chips('mood',pr(CMOOD),true,r)}<div class="lab">Выделения</div>${chips('discharge',pr(CDIS),false,r)}<div class="lab">Секс</div>${chips('sex',pr(CSEX),false,r)}
+<div class="lab">Температура и заметка</div><input class="inp" data-cn="temp" inputmode="decimal" aria-label="Температура" placeholder="Температура, например 36,6" value="${esc(r.temp||'')}"><textarea class="inp" data-cn="note" aria-label="Заметка" placeholder="Лекарства, тест, что угодно" style="margin-top:8px;min-height:80px">${esc(r.note||'')}</textarea>
+${hr.length?`<div class="lab">Из Здоровья</div>${hr.map(([a,b])=>`<div class="row"><div class="t">${esc(a)}</div><b>${esc(b)}</b></div>`).join('')}`:''}<div class="btns"><button class="btn" data-x>Готово</button></div>`};
+draw();o.addEventListener('click',e=>{if(e.target.closest('[data-x]'))return closeModal();const b=e.target.closest('[data-cf]');if(!b)return;const f=b.dataset.cf,v=b.dataset.v,r=(C()?.days||{})[d]||{};
+if(b.dataset.m){let a=[...(r[f]||[])];a=a.includes(v)?a.filter(x=>x!==v):[...a,v];if(f==='symptoms')a=v==='Всё хорошо'&&a.includes(v)?[v]:a.filter(x=>x!=='Всё хорошо'||v==='Всё хорошо');cSet(d,{[f]:a})}else cSet(d,{[f]:r[f]===v?undefined:v});
+const sc=$('.modal',o).scrollTop;draw();$('.modal',o).scrollTop=sc;$(`[data-cf="${f}"][data-v="${CSS.escape(v)}"]`,o)?.focus()});
+o.addEventListener('input',e=>{const k=e.target.dataset.cn;if(k)cSet(d,{[k]:k==='temp'?e.target.value.trim().replace('.',','):e.target.value.trim()})})}
+
+/* ---------- загрузка из Здоровья (команда кладёт данные в буфер) ---------- */
+let hRunAt=0;
+function hApply(text){const{rows,bad}=parseHealth(text);if(!rows.length){hResult(rows,bad,{},[]);return false}const{H,cnt}=aggregateHealth(rows),touched=new Set(rows.map(r=>r.code)),dates=Object.keys(H).sort();
+Cw(c=>{c.health||={};for(const d of dates){const cur={...(c.health[d]||{})};for(const k of touched)delete cur[H_FIELD[k]];c.health[d]={...cur,...H[d]}}c.healthAt=Date.now()});hResult(rows,bad,cnt,dates);render();return true}
+function hResult(rows,bad,cnt,dates){modal(`<h3>${rows.length?'Данные загружены':'Не получилось'}</h3>${dates.length?`<p class="mut">${esc(fmt(dates[0]))} – ${esc(fmt(dates[dates.length-1]))}</p>`:''}${rows.length?`<div class="chips" style="margin-top:12px">${H_CODES.filter(c=>cnt[c]).map(c=>`<span class="chip g">${H_NAMES[c]}: ${cnt[c]}</span>`).join('')}</div>`:''}${bad.length?`<p class="mut" style="margin-top:12px">Не распознано строк: ${bad.length}. Пришли скриншот, если что-то не так:</p><pre class="hraw">${esc(bad.slice(0,4).join('\n'))}</pre>`:''}<div class="btns"><button class="btn" data-x>Готово</button>${rows.length?'':'<button class="btn s" data-a="hHelp">Как настроить</button>'}</div>`);$('.ov [data-x]').onclick=()=>closeModal()}
+const H_RX=()=>new RegExp(`(${H_CODES.join('|')})(\\||\\s*:\\s*start)`,'i');
+async function hImport(){let t='';try{t=await navigator.clipboard.readText()}catch(e){}if(H_RX().test(t))return hApply(t);hPaste(true)}
+function hPaste(empty){const o=modal(`<h3>Вставь данные из команды</h3><p class="mut">${empty===true?'В буфере нет данных из команды. ':''}Запусти команду «${esc(C()?.settings?.shortcutName||CDEF.shortcutName)}», вернись сюда и вставь текст (долгое нажатие → «Вставить»).</p><textarea class="inp" id="hp" style="margin-top:12px;min-height:130px" placeholder="=STEPS:start …"></textarea><div class="btns"><button class="btn" data-go>Загрузить</button><button class="btn s" data-clip>Из буфера</button><button class="btn s" data-x>Закрыть</button></div>`);
+$('[data-x]',o).onclick=()=>closeModal();$('[data-go]',o).onclick=()=>{const v=$('#hp',o).value;if(!v.trim())return toast('Вставь текст');closeModal();hApply(v)};$('[data-clip]',o).onclick=async()=>{try{$('#hp',o).value=await navigator.clipboard.readText()}catch(e){toast('Браузер не дал прочитать буфер: вставь вручную')}}}
+function hRun(){hRunAt=Date.now();location.href='shortcuts://run-shortcut?name='+encodeURIComponent(C()?.settings?.shortcutName||CDEF.shortcutName)}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible'||!hRunAt||Date.now()-hRunAt>3e5)return;hRunAt=0;setTimeout(()=>{const o=modal(`<h3>Данные готовы?</h3><p class="mut">Команда должна была скопировать их. Нажми кнопку, а потом «Вставить» во всплывающем окне.</p><div class="btns"><button class="btn" data-go>Загрузить из Здоровья</button><button class="btn s" data-x>Позже</button></div>`);$('[data-x]',o).onclick=()=>closeModal();$('[data-go]',o).onclick=()=>{closeModal();hImport()}},400)});
+function hHelp(){const c=s=>`<code>${s}</code>`;const o=modal(`<h3>Команда «Здоровье»</h3><div class="hhelp"><p>Команда «${esc(C()?.settings?.shortcutName||CDEF.shortcutName)}» у тебя уже есть: она приносит сон, шаги, вес и тренировки. Для питания из Yazio добавь в неё ещё блоки, так же, как блок шагов: «Найти образцы здоровья» → «Текст» с тремя метками → «Добавить в переменную Данные».</p>
+<div class="row"><div class="t">Потреблённая энергия<small>группировать по дню</small></div>${c('EAT')}</div><div class="row"><div class="t">Белки<small>группировать по дню</small></div>${c('PROT')}</div><div class="row"><div class="t">Жиры, всего<small>группировать по дню</small></div>${c('FAT')}</div><div class="row"><div class="t">Углеводы<small>группировать по дню</small></div>${c('CARB')}</div><div class="row"><div class="t">Вода<small>по желанию, группировать по дню</small></div>${c('WATER')}</div>
+<p>В «Тексте» метки такие: ${c('=EAT:start')}, ${c('=EAT:end')}, ${c('=EAT:value')}, под каждой своя переменная (дата начала, дата окончания, значение). Для белков код ${c('PROT')} и так далее.</p><p class="mut">Названия типов на iPhone могут немного отличаться: если не находится, пришли скриншот списка.</p><p class="mut">В Yazio: Профиль → Настройки → Apple Здоровье → включить запись питания.</p></div><div class="btns"><button class="btn" data-x>Понятно</button></div>`);$('[data-x]',o).onclick=()=>closeModal()}
+
+/* ---------- страница «Здоровье» ---------- */
+function heart(){const t=today(),d=day(t),m=monday(t),ph=phase(t),md=U.mday||t,w=hLast('weight',t);
+const wdays=new Set();for(let i=0;i<7;i++){const dd=add(m,i);if(dd<=t&&(hWork(dd).length||S.workouts.some(x=>x.dow===i&&x.log[dd])))wdays.add(dd)}
+let c='';if(!['body','sport','food','cycle'].includes(U.health))U.health='body';
+if(U.health==='body')c=bodyPage();
+else if(U.health==='sport')c=`<section class="card">${hd('heart','Тренировки на неделю',addB('workEd','Тренировка'))}${WD.map((wn,i)=>{const dd=add(m,i),l=S.workouts.filter(x=>x.dow===i),hw=hWork(dd);const own=l.map(x=>`<div class="row ${x.log[dd]?'done':''}">${ck('work',x.id,x.log[dd],`data-d="${dd}"`)}<div class="t">${esc(x.name)}<small>${wn}, ${fmt(dd)}</small></div>${ed('workEd',x.id)}</div>`).join(''),fromH=hw.map(x=>`<div class="row"><span class="ck on" aria-hidden="true"></span><div class="t">${esc(x.n)}<small>${wn}, ${fmt(dd)} · из Здоровья${+x.min?' · '+hm(x.min):''}</small></div></div>`).join('');return own+fromH||`<div class="row"><span class="t mut">${wn} · отдых</span></div>`}).join('')}</section>`;
+else if(U.health==='food'){const h=HD()[md]||{},hw=HD()[t]?.water;c=`<div class="grid"><section class="card">${hd('heart','Питание',addB('mealEd','Запись',`data-d="${md}"`))}<input class="inp" type="date" data-c="mday" aria-label="Дата" value="${md}">${h.eat!=null?`<div class="note"><b>Из Yazio:</b> ${nn(h.eat)} ккал${h.prot!=null?' · белки '+nn(h.prot)+' г':''}${h.fat!=null?' · жиры '+nn(h.fat)+' г':''}${h.carb!=null?' · углеводы '+nn(h.carb)+' г':''}</div>`:''}${S.meals.filter(x=>x.date===md).map(x=>`<div class="row"><div class="t">${esc(x.text)}<small>${esc(x.type)}</small></div>${ed('mealEd',x.id)}</div>`).join('')||'<p class="empty">Записей нет.</p>'}</section><section class="card">${hd('heart','Вода сегодня','','b')}<div class="big">${d.water||0} из 8 стаканов</div><div style="font-size:27px;margin:14px 0;letter-spacing:3px">${'💧'.repeat(Math.min(d.water||0,12))}<span style="opacity:.2">${'💧'.repeat(Math.max(0,8-(d.water||0)))}</span></div><div class="chips"><button class="btn" data-a="water" data-n="1">+ Стакан</button><button class="btn s" data-a="water" data-n="-1">− Убрать</button></div>${hw?`<p class="mut" style="margin-top:12px">По данным Здоровья сегодня: ${dec(hw/1000)} л</p>`:''}</section></div>`}
+else c=cyclePage();
+return hero('Здоровье','Тело, движение, еда и цикл. Данные приходят сами из Здоровья и Yazio.',[[w?dec(w[1]):'–','кг'],[String(wdays.size),'тренировок за неделю'],[ph?(ph.late?'+'+ph.late:String(ph.n)):'–',ph&&ph.late?'дней задержки':'день цикла']])+`<div class="hd">${seg('health',[['body','Тело'],['sport','Тренировки'],['food','Питание'],['cycle','Цикл']])}</div>`+c}
+
+const ZA={cDay:d=>cDay(d.d),cStart:()=>cMark(today()),cStartAsk:()=>form('Начало месячных',[['d','Первый день','date','req']],{d:today()},r=>{if(r.d>today())return toast('Дата не может быть в будущем');cMark(r.d)}),
+cEnd:()=>{const m=cmodel(),t=today(),g=m&&m.groups.find(g=>g.start<=t&&g.end>=t);if(g)Cw(c=>{for(let d=add(t,1);d<=g.end;d=add(d,1))if(c.days[d]){delete c.days[d].period;if(!Object.keys(c.days[d]).length)delete c.days[d]}});toast('Месячные закончились сегодня');render()},
+cSetup:()=>{const s=(C()||{settings:CDEF}).settings;form('Настройки цикла',[['cycleLen','Длина цикла, дней','number'],['periodLen','Месячные, дней','number'],['auto','Считать средние по моим отметкам','check']],{cycleLen:s.cycleLen,periodLen:s.periodLen,auto:s.auto!==false},r=>Cw(c=>{c.settings={...c.settings,cycleLen:Math.min(60,Math.max(18,r.cycleLen||28)),periodLen:Math.min(12,Math.max(1,r.periodLen||5)),auto:!!r.auto}}))},
+hRun,hPaste,hHelp,bodyEd:d=>bodyForm(d.id)};
 
 const VIEW={home,week,hab,lang,bank,heart,own,gift};let noise=null;
 function render(){S.tasks=S.tasks.filter(x=>!(x.auto&&!x.done&&x.date<today()));ensure(add(today(),35));if(U.page==='week')ensure(add(monday(today()),U.week*7+6));document.body.className=(S.menu==='side'?'side ':'')+(S.journal?'journal':'');const badge={week:tasksOf(today()).filter(x=>!x.done).length,lang:due().length},old=$('.nav')?.scrollLeft||0;
@@ -505,7 +789,7 @@ function importAll(){const i=$('#file');i.value='';i.onchange=async()=>{const f=
 const ready=()=>!$('.ov')&&!$('#gate')&&!typing();
 function cloud(){const o=modal(`<h3>Записи на всех устройствах</h3>${cloudBox()}`),f=$('#lf',o);if(f)f.onsubmit=async e=>{e.preventDefault();const b=$('button',f);b.disabled=true;try{await Sync.login(f.elements.email.value.trim(),f.elements.pw.value);closeModal();toast('Вход выполнен')}catch(x){$('.ge',f).textContent=x.message;b.disabled=false}}}
 const A={cloud,cloudPick:d=>{closeModal();Sync.choose(d.v)},cloudNow:()=>{closeModal();Sync.run();toast('Обновляю')},cloudOut:()=>{closeModal();Sync.logout();render();toast('Вход закрыт, записи на этом устройстве остались')},
-go:d=>go(d.v),ui:d=>{U[d.k]=d.v;U.ex=null;U.flip=false;render()},step:d=>{U[d.k]+=+d.n;render()},settings,export:exportAll,import:importAll,
+go:d=>{if(d.v==='heart'&&d.hv)U.health=d.hv;go(d.v)},ui:d=>{U[d.k]=d.v;U.ex=null;U.flip=false;render()},step:d=>{U[d.k]+=+d.n;render()},settings,export:exportAll,import:importAll,
 wipe:()=>ask('Удалить все записи?','Кабинет станет пустым, а если выполнен вход, то и на всех устройствах. Сначала лучше сделать экспорт.','Удалить всё',()=>{const o=S;S=blank();S.name=o.name;S.menu=o.menu;S.journal=o.journal;S.areas=o.areas;S.gate=o.gate;S.cur=o.cur;S.rate=o.rate;save();go('home')}),
 areaEd:d=>edit('areas',d.id,'Раздел',[['name','Название','text','req'],['color','Цвет','color']],{name:'',color:COLORS[S.areas.length%6]}),
 water:d=>{setDay(today(),{water:Math.max(0,(day(today()).water||0)+ +d.n)});render()},
@@ -522,7 +806,7 @@ build:()=>{buildPlan();render();toast('День собран заново')},uns
 skip:d=>{const t=get('tasks',d.id);if(t.auto)setDay(today(),{skip:[...new Set([...(day(today()).skip||[]),t.auto])]});del('tasks',t.id);save();render();toast('Убрано на сегодня')},
 swap:d=>{const t=get('tasks',d.id),k=t.auto,r=day(today()),en=r.rest?1:+r.energy||3,old=t.text;if(!k)return;del('tasks',t.id);let x;for(let i=1;i<10;i++){setDay(today(),{alt:{...(day(today()).alt||{}),[k]:((day(today()).alt||{})[k]||0)+1}});x=autoItems(today(),en).find(y=>y.auto===k);if(!x||x.text!==old)break}if(x){const{at,...y}=x;S.tasks.push({id:uid(),area:'',...y,date:t.date,time:t.time,done:false})}else S.tasks.push(t);save();render()},
 how:d=>{const t=get('tasks',d.id);modal(`<h3>${esc(t.text)}</h3><p style="white-space:pre-wrap">${esc(t.note)}</p><div class="btns"><button class="btn" data-a="shut">Понятно</button></div>`)},
-planSet:()=>form('Мой обычный день',[['wake','Просыпаюсь','time','req'],['bed','Ложусь','time','req'],['work','Есть рабочие часы, их не занимать','check'],['ws','Работа с','time'],['we','Работа до','time'],['wdt','Рабочие дни','sel',[['5','Пн–Пт'],['6','Пн–Сб'],['7','Каждый день']]],['eng','Добавлять английский','check'],['sport','Добавлять движение','check'],['dinner','Предлагать ужин','check'],['goal','Добавлять шаг к цели недели','check'],['read','Добавлять чтение','check']],{...S.plan,wdt:S.plan.wd.length},r=>{const{wdt,...x}=r;S.plan={...S.plan,...x,ws:x.ws||S.plan.ws,we:x.we||S.plan.we,wd:[0,1,2,3,4,5,6].slice(0,+wdt)};if(day(today()).built)buildPlan()}),
+planSet:()=>form('Мой обычный день',[['wake','Просыпаюсь','time','req'],['bed','Ложусь','time','req'],['work','Есть рабочие часы, их не занимать','check'],['ws','Работа с','time'],['we','Работа до','time'],['wdt','Рабочие дни','sel',[['5','Пн–Пт'],['6','Пн–Сб'],['7','Каждый день']]],['eng','Добавлять английский','check'],['sport','Добавлять движение','check'],['dinner','Предлагать ужин','check'],['goal','Добавлять шаг к цели недели','check'],['read','Добавлять чтение','check'],['body','Раз в неделю напоминать про замеры тела','check'],['bdow','День замеров','sel',WD.map((w,i)=>[i,w])]],{...S.plan,wdt:S.plan.wd.length},r=>{const{wdt,...x}=r;x.bdow=+x.bdow;S.plan={...S.plan,...x,ws:x.ws||S.plan.ws,we:x.we||S.plan.we,wd:[0,1,2,3,4,5,6].slice(0,+wdt)};if(day(today()).built)buildPlan()}),
 goal:d=>{const g=get('goals',d.id);g.done=!g.done;save();render()},goalEd:d=>edit('goals',d.id,'Цель недели',[['text','Цель','text','req']],{text:'',week:d.d,done:false}),goalNext:d=>{S.goals.filter(x=>x.week===d.d&&!x.done).forEach(x=>x.week=add(x.week,7));save();render();toast('Цели перенесены')},
 tDur:d=>{S.timer.dur=+d.n;save();render()},tRun:()=>{const t=S.timer;if(t.end){t.left=tleft();t.end=null}else{t.end=Date.now()+tleft();t.left=null;try{ac()}catch(e){}}save();render()},tStop:()=>finish(false),music:()=>{music();toast(noise?'Мягкий шум включён':'Шум выключен')},
 focEd:d=>edit('focus',d.id,'Время в фокусе',[['area','Раздел','sel',areaOpt()],['min','Минут','number'],['date','День','date']],{area:S.timer.area,min:25,date:today()}),
@@ -547,9 +831,6 @@ bankCopy:async d=>{try{await navigator.clipboard.writeText(get('bank',d.id).ing)
 work:d=>{const w=get('workouts',d.id);if(w.log[d.d])delete w.log[d.d];else w.log[d.d]=1;save();render()},workEd:d=>edit('workouts',d.id,'Тренировка',[['name','Что делаем','text','req'],['dow','День недели','sel',WD.map((w,i)=>[i,w])]],{name:'',dow:dow(today()),log:{}},()=>S.workouts.forEach(w=>w.dow=+w.dow)),
 mealEd:d=>edit('meals',d.id,'Питание',[['text','Что в тарелке','text','req'],['type','Приём пищи','sel',['Завтрак','Обед','Ужин','Перекус'].map(x=>[x,x])],['date','День','date']],{text:'',type:'Завтрак',date:d.d||today()}),
 sym:d=>{const s=day(today()).sym||[];setDay(today(),{sym:s.includes(d.v)?s.filter(x=>x!==d.v):[...s,d.v]});render()},
-cycAdd:()=>cycForm(null,today()),cycEd:d=>cycForm(d.d,d.d),cycDay:d=>S.cycle.starts.includes(d.d)?cycForm(d.d,d.d):cycForm(null,d.d),
-cycSet:()=>form('Настройки цикла',[['len','Длина цикла, дней','number'],['per','Месячные, дней','number']],S.cycle,r=>{S.cycle.len=Math.min(60,Math.max(18,r.len));S.cycle.per=Math.min(12,r.per)}),
-cycImp:()=>{const c=cycleApp();if(!c)return;ask('Взять данные из «Цикла»?','Примеры здесь заменятся настоящими датами ('+c.starts.length+'). Само приложение «Цикл» не изменится.','Взять',()=>{S.cycle.starts=c.starts;if(+c.set.cycleLen)S.cycle.len=+c.set.cycleLen;if(+c.set.periodLen)S.cycle.per=+c.set.periodLen;save();render()})},
 ownGo:d=>{U.own=d.id;render()},ownEd:d=>edit('own',d.id,'Свой раздел',[['name','Название','text','req'],['icon','Эмодзи']],{name:'',icon:'✨',items:[]},()=>{if(!d.id)U.own=S.own[S.own.length-1].id;const o=get('own',U.own);if(!o.items)o.items=[];o.items=[...o.items]}),
 itemEd:d=>{const o=get('own',U.own),it=o.items.find(x=>x.id===d.id);form('Запись',[['title','Название','text','req'],['note','Заметка','area'],['st','Где сейчас','sel',[['want','Хочу'],['work','В процессе'],['ok','Готово']]]],it||{st:d.st},r=>{if(it)Object.assign(it,r);else o.items.push({id:uid(),...r})},it?()=>{o.items=o.items.filter(x=>x!==it)}:null)},
 itemNext:d=>{const x=get('own',U.own).items.find(x=>x.id===d.id);x.st=x.st==='want'?'work':'ok';save();render()},
@@ -563,6 +844,7 @@ buy:d=>{const r=get('rewards',d.id);if(savedR(r.id)<r.cost)return;const id=uid()
 unbuy:d=>{const q=get('buys',d.id);if(q.r&&!get('rewards',q.r.id))S.rewards.push(q.r);S.money=S.money.filter(m=>m.bid!==q.id||get('rewards',m.rid));S.money.forEach(m=>{if(m.bid===q.id)delete m.bid});del('buys',q.id);save();render()},
 quick:()=>{const o=modal(`<h3>Что добавить?</h3><div class="chips">${[['taskEd','Задачу'],['repEd','Постоянную задачу'],['wordEd','Слово'],['bankAdd','В копилку'],['mealEd','Еду'],['textEd','Текст'],['habEd','Привычку'],['focEd','Время']].map(([a,l])=>`<button class="btn s" data-a="${a}">${l}</button>`).join('')}</div>`)},
 hit:d=>{if(d.own)U.own=d.own;if(d.txt)U.txt=d.txt;if(d.k)U[d.k]=d.k==='week'?+d.kv:d.kv;$('#q').value='';$('#found').hidden=true;go(d.v)}};
+Object.assign(A,ZA);
 function shrink(file){return new Promise((ok,no)=>{const u=URL.createObjectURL(file),i=new Image();i.onload=()=>{const k=Math.min(1,520/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(i.width*k));c.height=Math.max(1,Math.round(i.height*k));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL('image/jpeg',.8))};i.onerror=()=>{URL.revokeObjectURL(u);no()};i.src=u})}
 function rewForm(id,again){const r=id?get('rewards',id):{name:'',cost:'',e:'🎁',img:'',link:'',again};let img=r.img||'';
 const o=modal(`<form><h3>${id?'Изменить':again?'Маленькая радость':'Вещь в вишлист'}</h3><label>Название<input class="inp" name="name" required value="${esc(r.name)}"></label><label>Цена в магазине, ${esc(S.cur)}<input class="inp" name="cost" inputmode="decimal" required value="${esc(String(r.cost).replace('.',','))}"></label><p class="mut" data-calc style="margin-bottom:12px"></p><label>Фото: выбери файл или вставь скриншот из буфера<input class="inp" name="f" type="file" accept="image/*"></label><div data-prev></div><label>Ссылка на магазин, если есть<input class="inp" name="link" type="url" value="${esc(r.link)}"></label><label>Эмодзи, если нет фото<input class="inp" name="e" value="${esc(r.e)}"></label><label><input type="checkbox" name="again" ${r.again?'checked':''}> Можно покупать снова и снова (кофе, кино)</label><div class="btns"><button class="btn">Сохранить</button><button type="button" class="btn s" data-x>Отмена</button>${id?'<button type="button" class="btn red" data-del>Удалить</button>':''}</div></form>`),f=$('form',o),el=f.elements,val=()=>parseFloat(el.cost.value.replace(/\s/g,'').replace(',','.'));
@@ -570,13 +852,12 @@ const prev=()=>{$('[data-prev]',o).innerHTML=img?`<img class="pv" src="${img}" a
 prev();calc();el.cost.oninput=calc;el.f.onchange=()=>take(el.f.files[0]);f.onpaste=e=>{const i=[...(e.clipboardData?.items||[])].find(x=>x.type.startsWith('image/'));if(i){e.preventDefault();take(i.getAsFile())}};$('[data-x]',o).onclick=()=>closeModal();
 f.onsubmit=e=>{e.preventDefault();const v=val();if(!(v>0)||v>1e7)return toast('Впиши цену числом, например 89,90');const x={name:el.name.value.trim(),cost:r2(v),img,link:el.link.value.trim(),e:el.e.value.trim(),again:el.again.checked};if(!x.name)return;closeModal();if(id)Object.assign(r,x);else S.rewards.push({id:uid(),...x});save();render()};
 if(id){let sure=false;$('[data-del]',o).onclick=e=>{if(!sure){sure=true;e.target.textContent='Точно удалить?';return}closeModal();S.money=S.money.filter(m=>m.rid!==id||m.bid);del('rewards',id);save();render();toast('Удалено, баллы вернулись')}}}
-function cycForm(old,d){form('Начало месячных',[['d','Первый день','date']],{d},r=>{if(r.d>today()){toast('Дата не может быть в будущем');return}const s=S.cycle.starts.filter(x=>x!==old);s.push(r.d);S.cycle.starts=[...new Set(s)].sort()},old?()=>{S.cycle.starts=S.cycle.starts.filter(x=>x!==old)}:null)}
 document.addEventListener('click',e=>{if(!e.target.closest('.top'))$('#found').hidden=true;const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a]({...b.dataset},b)});
 document.addEventListener('change',e=>{const k=e.target.dataset?.c,v=e.target.value,d=e.target.dataset;if(k==='main'){setDay(today(),{main:v.trim()});const r=day(today());if(r.energy&&!U.start)setTimeout(render,200)}else if(k==='word')setDay(d.d,{word:v.trim()});else if(k==='win'){const w=[...(day(d.d).wins||['','',''])];w[+d.i]=v.trim();setDay(d.d,{wins:w})}else if(k==='tArea'){S.timer.area=v;save()}else if(k==='mday'){if(v){U.mday=v;render()}}});
 document.addEventListener('input',e=>{const d=e.target.dataset;if(d?.c==='gap'&&U.ex)U.ex.v[d.i]=e.target.value;if(e.target.id==='q')search(e.target.value)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#found').hidden=true;if(e.key==='Enter'&&e.target.dataset?.c==='main')e.target.blur()});
 function search(q){q=q.trim().toLowerCase();const f=$('#found');if(q.length<2){f.hidden=true;return}const R=[],ad=(t,l,v,x='')=>{if(String(t).toLowerCase().includes(q))R.push(`<button data-a="hit" data-v="${v}" ${x}>${esc(String(t).slice(0,90))}<span>${l}</span></button>`)};S.words.forEach(x=>ad(x.w+' – '+x.t,'слово','lang','data-k="lang" data-kv="dict"'));S.texts.forEach(x=>ad(x.title+' '+x.text,'текст','lang',`data-k="lang" data-kv="text" data-txt="${x.id}"`));S.tasks.forEach(x=>ad(x.text,'задача · '+fmt(x.date),'week',`data-k="week" data-kv="${diff(monday(today()),monday(x.date))/7}"`));S.goals.forEach(x=>ad(x.text,'цель','week'));S.habits.forEach(x=>ad(x.name,'привычка','hab'));S.bank.forEach(x=>ad(x.title+' '+x.ing+' '+x.text+' '+x.tag,KIND[x.kind][0].toLowerCase(),'bank','data-k="bank" data-kv="all"'));S.workouts.forEach(x=>ad(x.name,'тренировка','heart','data-k="health" data-kv="sport"'));S.own.forEach(o=>o.items.forEach(x=>ad(x.title+' '+(x.note||''),esc(o.name),'own',`data-own="${o.id}"`)));S.rewards.forEach(x=>ad(x.name,'награда','gift'));f.innerHTML=R.slice(0,20).join('')||'<p class="empty" style="padding:14px">Ничего не нашлось</p>';f.hidden=false}
-addEventListener('storage',e=>{if(e.key==='cycle.v1')Sync.touch('cycle');if(e.key===KEY&&e.newValue){try{const n=norm(JSON.parse(e.newValue));if(n){S=n;if(!$('.ov')&&!typing())render()}}catch(x){}}});
+addEventListener('storage',e=>{if(e.key==='cycle.v1'){Sync.touch('cycle');if(U.page==='heart'&&!$('.ov')&&!typing())render()}if(e.key===KEY&&e.newValue){try{const n=norm(JSON.parse(e.newValue));if(n){S=n;if(!$('.ov')&&!typing())render()}}catch(x){}}});
 function newDay(){if(today()!==U.day0&&!$('.ov')&&!typing()){U.day0=today();U.itog=null;U.start=false;U.pd=0;render()}}
 /* ===== разминка при входе ===== */
 const EW=[['weather','погода'],['bridge','мост'],['to borrow','брать взаймы'],['honest','честный'],['knife','нож'],['to forget','забывать'],['spring','весна'],['heavy','тяжёлый'],['journey','путешествие'],['to choose','выбирать'],['neighbour','сосед'],['empty','пустой'],['to smile','улыбаться'],['forest','лес'],['cheap','дешёвый'],['to build','строить'],['shoulder','плечо'],['brave','смелый'],['dream','мечта'],['to explain','объяснять'],['early','рано'],['mirror','зеркало'],['to laugh','смеяться'],['island','остров'],['narrow','узкий'],['to hide','прятать'],['butter','сливочное масло'],['lazy','ленивый'],['health','здоровье'],['to return','возвращаться'],['wooden','деревянный'],['cloud','облако'],['to try','пробовать'],['pillow','подушка'],['sharp','острый'],['advice','совет'],['to win','побеждать'],['sour','кислый'],['habit','привычка'],['always','всегда']];
@@ -612,7 +893,7 @@ setInterval(()=>{if(S.timer.end)tick();newDay();if(!document.hidden&&S.gate.mode
 $('#bg').innerHTML=I('gear');$('#bp').innerHTML=I('plus');$('#bs').innerHTML=I('find');go(location.hash.slice(1)||'home');gateShow();if(bad)toast('Старые данные не прочитались: их копия сохранена, открыты примеры');
 
 Sync.add('kabinet',{get:()=>S,max:blank().v,first:true,ready,backup:()=>{try{localStorage.setItem(KEY+'.before',JSON.stringify(S))}catch(e){}},apply:v=>{const n=norm(v);if(!n)return;S=n;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Не хватает места в браузере')}render()}});
-Sync.add('cycle',{get:()=>{try{const x=JSON.parse(localStorage.getItem('cycle.v1'));return x&&x.days?x:null}catch(e){return null}},apply:v=>{if(v&&v.days)localStorage.setItem('cycle.v1',JSON.stringify(v))}});
+Sync.add('cycle',{get:()=>{try{const x=JSON.parse(localStorage.getItem('cycle.v1'));return x&&x.days?x:null}catch(e){return null}},apply:v=>{if(v&&v.days){localStorage.setItem('cycle.v1',JSON.stringify(v));if(U.page!=='home'&&ready())render()}}});
 let syncWas='';Sync.on(()=>{const k=Sync.state+Sync.error;if(k===syncWas)return;syncWas=k;if(Sync.state==='choose'&&ready())cloud();else if(Sync.state!=='busy'&&U.page==='home'&&ready())render()});Sync.start();
 </script>
 </body>
